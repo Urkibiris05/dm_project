@@ -1,3 +1,7 @@
 MentalRiskEs2023/***
 DatosMentalRiskchallenge-20261005.zip
-code/.venv/***
+code/**
+.venv/***
+estado_del_arte***
+.pytest_cache/***
+**/__pycache__/**
