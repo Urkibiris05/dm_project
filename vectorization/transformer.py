@@ -47,11 +47,6 @@ def add_arguments(parser: argparse.ArgumentParser) -> None:
                         "bloques de palabras (def. mean)")
     parser.add_argument("--block-words", type=int, default=None,
                         help="palabras por bloque (def. según el modelo)")
-    parser.add_argument("--batch-size", type=int, default=32)
-    parser.add_argument("--device", choices=["cpu", "cuda", "auto"],
-                        default="cpu",
-                        help="dispositivo del encoder (def. cpu; el "
-                        "proyecto se mide en CPU)")
     parser.add_argument("--no-normalize", action="store_true",
                         help="no normalizar los vectores en L2")
     parser.add_argument("--truncate-dim", type=int, default=None,

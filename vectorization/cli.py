@@ -62,6 +62,15 @@ def add_common_arguments(parser: argparse.ArgumentParser) -> None:
     affect.add_arguments(group)
     time_features.add_arguments(group)
 
+    group = parser.add_argument_group("ejecución")
+    group.add_argument("--device", choices=["cpu", "cuda", "auto"],
+                       default="cpu",
+                       help="dispositivo de los encoders (def. cpu; el "
+                       "proyecto se mide en CPU). Lo ignoran tfidf y "
+                       "features, para poder pasarlo a todas las líneas")
+    group.add_argument("--batch-size", type=int, default=32,
+                       help="tamaño de lote de los encoders (def. 32)")
+
     group = parser.add_argument_group("salida")
     group.add_argument("--output-dir", default="vectorizations")
     group.add_argument("--cache-dir", default=".cache")
@@ -182,7 +191,7 @@ def run(args: argparse.Namespace) -> Path:
         with timer.phase("affect"):
             messages, config["affect"] = affect.message_affect(
                 df["message"].tolist(), args.affect_tasks, cache_dir,
-                not args.no_cache)
+                not args.no_cache, args.batch_size)
             affect_block = (messages if args.unit == "message" else
                             aggregate_rows(messages, units.owner, "mean"))
             config["affect"]["columns"] = affect.affect_columns(
