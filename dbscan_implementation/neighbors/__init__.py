@@ -7,12 +7,18 @@ Para añadir una nueva:
 """
 
 from .base import NeighborSearch
+from .blocked import BlockedBruteForceSearch
 from .brute_force import BruteForceSearch
 
-__all__ = ["NeighborSearch", "BruteForceSearch", "get_neighbor_search"]
+__all__ = [
+    "NeighborSearch",
+    "BruteForceSearch",
+    "BlockedBruteForceSearch",
+    "get_neighbor_search",
+]
 
 # Nombres admitidos en el parámetro ``algorithm``.
-ALGORITHM_NAMES: list[str] = ["brute"]
+ALGORITHM_NAMES: list[str] = ["brute", "blocked"]
 
 
 def get_neighbor_search(
@@ -30,6 +36,8 @@ def get_neighbor_search(
 
     if algorithm == "brute":
         return BruteForceSearch()
+    if algorithm == "blocked":
+        return BlockedBruteForceSearch()
 
     raise ValueError(
         f"Búsqueda desconocida: {algorithm!r}. Opciones: {ALGORITHM_NAMES}"

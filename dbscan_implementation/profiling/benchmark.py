@@ -54,6 +54,7 @@ SCENARIOS: list[Scenario] = [
     Scenario("euclidea_2d", "euclidean", 2),
     Scenario("euclidea_32d", "euclidean", 32),
     Scenario("coseno_32d", "cosine", 32),
+    Scenario("coseno_384d", "cosine", 384),
 ]
 
 

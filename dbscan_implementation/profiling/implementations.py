@@ -40,6 +40,15 @@ def run_ours_brute(
     return model.fit_predict(X)
 
 
+def run_ours_blocked(
+    X: np.ndarray, eps: float, min_samples: int, metric: str
+) -> np.ndarray:
+    model = DBSCAN(
+        eps=eps, min_samples=min_samples, metric=metric, algorithm="blocked"
+    )
+    return model.fit_predict(X)
+
+
 def run_sklearn(
     X: np.ndarray, eps: float, min_samples: int, metric: str, algorithm: str
 ) -> np.ndarray:
@@ -131,6 +140,10 @@ IMPLEMENTATIONS: list[Implementation] = [
     Implementation(
         "mlpack_brute", "mlpack (fuerza bruta)", run_mlpack_brute,
         ("euclidean",),
+    ),
+    Implementation(
+        "ours_blocked", "Nuestro (por bloques)", run_ours_blocked,
+        ("euclidean", "cosine"),
     ),
 ]
 

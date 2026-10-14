@@ -6,8 +6,11 @@ from sklearn.cluster import DBSCAN as SklearnDBSCAN
 from sklearn.datasets import make_blobs, make_moons
 
 from dbscan_implementation import DBSCAN
-from dbscan_implementation.distances import MinkowskiDistance
-from dbscan_implementation.neighbors import BruteForceSearch
+from dbscan_implementation.distances import MinkowskiDistance, get_distance
+from dbscan_implementation.neighbors import (
+    BlockedBruteForceSearch,
+    BruteForceSearch,
+)
 
 
 def make_datasets() -> dict[str, np.ndarray]:
@@ -21,6 +24,7 @@ def make_datasets() -> dict[str, np.ndarray]:
 DATASETS = make_datasets()
 
 
+@pytest.mark.parametrize("algorithm", ["brute", "blocked"])
 @pytest.mark.parametrize("dataset", ["blobs", "moons"])
 @pytest.mark.parametrize(
     "params",
@@ -34,10 +38,10 @@ DATASETS = make_datasets()
         {"eps": 0.01, "min_samples": 5, "metric": "cosine"},
     ],
 )
-def test_matches_sklearn(dataset: str, params: dict) -> None:
+def test_matches_sklearn(dataset: str, params: dict, algorithm: str) -> None:
     X = DATASETS[dataset]
 
-    ours = DBSCAN(**params).fit(X)
+    ours = DBSCAN(algorithm=algorithm, **params).fit(X)
     theirs = SklearnDBSCAN(algorithm="brute", **params).fit(X)
 
     assert np.array_equal(ours.labels_, theirs.labels_)
@@ -47,21 +51,70 @@ def test_matches_sklearn(dataset: str, params: dict) -> None:
     assert np.array_equal(ours.components_, theirs.components_)
 
 
-def test_cosine_equals_euclidean_on_normalized_vectors() -> None:
+@pytest.mark.parametrize("algorithm", ["brute", "blocked"])
+def test_cosine_equals_euclidean_on_normalized_vectors(
+    algorithm: str,
+) -> None:
     # Si |x| = |y| = 1, entonces |x - y|^2 = 2 * (1 - cos(x, y)).
     X = np.random.default_rng(0).normal(size=(200, 3))
     X = X / np.linalg.norm(X, axis=1, keepdims=True)
 
     eps_cosine = 0.05
     labels_cosine = DBSCAN(
-        eps=eps_cosine, min_samples=4, metric="cosine"
+        eps=eps_cosine, min_samples=4, metric="cosine", algorithm=algorithm
     ).fit_predict(X)
     labels_euclidean = DBSCAN(
-        eps=np.sqrt(2 * eps_cosine), min_samples=4, metric="euclidean"
+        eps=np.sqrt(2 * eps_cosine),
+        min_samples=4,
+        metric="euclidean",
+        algorithm=algorithm,
     ).fit_predict(X)
 
     assert len(set(labels_cosine)) > 1  # el caso no es trivial
     assert np.array_equal(labels_cosine, labels_euclidean)
+
+
+def test_cosine_equals_euclidean_in_high_dimension() -> None:
+    # Dos grupos en 384 dimensiones, como los embeddings reales.
+    rng = np.random.default_rng(0)
+    centers = rng.normal(size=(2, 384))
+    X = np.vstack([c + 0.05 * rng.normal(size=(60, 384)) for c in centers])
+    X = X / np.linalg.norm(X, axis=1, keepdims=True)
+
+    eps_cosine = 0.05
+    labels_cosine = DBSCAN(
+        eps=eps_cosine, min_samples=4, metric="cosine", algorithm="blocked"
+    ).fit_predict(X)
+    labels_euclidean = DBSCAN(
+        eps=np.sqrt(2 * eps_cosine),
+        min_samples=4,
+        metric="euclidean",
+        algorithm="blocked",
+    ).fit_predict(X)
+
+    assert len(set(labels_cosine) - {-1}) == 2
+    assert np.array_equal(labels_cosine, labels_euclidean)
+
+
+@pytest.mark.parametrize("metric", ["euclidean", "cosine", "manhattan"])
+def test_blocked_matches_brute_neighborhoods(metric: str) -> None:
+    # 7 no divide a 300: el último bloque queda incompleto.
+    X = DATASETS["blobs"]
+    distance = get_distance(metric)
+    eps = 0.4 if metric != "cosine" else 0.01
+
+    expected = BruteForceSearch().fit(X, distance).radius_neighbors(eps)
+    blocked = BlockedBruteForceSearch(block_size=7)
+    result = blocked.fit(X, distance).radius_neighbors(eps)
+
+    assert len(result) == len(expected)
+    for got, want in zip(result, expected):
+        assert np.array_equal(got, want)
+
+
+def test_blocked_rejects_invalid_block_size() -> None:
+    with pytest.raises(ValueError):
+        BlockedBruteForceSearch(block_size=0)
 
 
 def test_small_example() -> None:

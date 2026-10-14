@@ -32,8 +32,9 @@ class DBSCAN:
     p : float, opcional
         Exponente de Minkowski. Solo se usa con ``metric="minkowski"``.
     algorithm : str o NeighborSearch
-        Cómo se buscan los vecinos. De momento solo ``"brute"``; también se
-        puede pasar un objeto ``NeighborSearch`` propio.
+        Cómo se buscan los vecinos: ``"brute"`` (matriz completa n x n) o
+        ``"blocked"`` (por bloques, sin guardar la matriz); también se puede
+        pasar un objeto ``NeighborSearch`` propio.
 
     Atributos (disponibles después de ``fit``)
     ------------------------------------------

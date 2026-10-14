@@ -34,7 +34,21 @@ def test_minkowski_pairwise_shape_and_symmetry() -> None:
     distances = MinkowskiDistance(p=2).pairwise(X, X)
     assert distances.shape == (6, 6)
     assert np.allclose(distances, distances.T)
-    assert np.allclose(np.diag(distances), 0)
+    # La euclídea usa un producto matricial: la diagonal es 0 salvo redondeo.
+    assert np.allclose(np.diag(distances), 0, atol=1e-6)
+
+
+def test_euclidean_matches_direct_computation() -> None:
+    rng = np.random.default_rng(0)
+    a = rng.normal(size=(8, 5))
+    b = np.vstack([rng.normal(size=(6, 5)), a[:2]])  # con puntos repetidos
+    expected = np.sqrt(((a[:, None] - b[None]) ** 2).sum(axis=-1))
+
+    distances = MinkowskiDistance(p=2).pairwise(a, b)
+
+    assert np.allclose(distances, expected)
+    assert not np.isnan(distances).any()
+    assert distances[0, 6] == pytest.approx(0, abs=1e-6)  # a[0] == b[6]
 
 
 def test_minkowski_rejects_invalid_p() -> None:
