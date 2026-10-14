@@ -6,3 +6,5 @@ estado_del_arte***
 .pytest_cache/***
 **/__pycache__/**
 CLAUDE.md
+# Cachés de embeddings y de pysentimiento (se regeneran)
+.cache/
