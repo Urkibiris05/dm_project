@@ -1,0 +1,133 @@
+experimento,dataset,metric,min_samples,eps,variante,desplazamiento,exact_equal
+E0.1,blobs,euclidean,3,0.0272756420879182,ours_brute,-1e-07,True
+E0.1,blobs,euclidean,3,0.0272756420879182,ours_brute,1e-07,True
+E0.1,blobs,euclidean,3,0.0272756420879182,ours_blocked,-1e-07,True
+E0.1,blobs,euclidean,3,0.0272756420879182,ours_blocked,1e-07,True
+E0.1,blobs,euclidean,3,0.0272756420879182,ours_optimized_blocked,-1e-07,True
+E0.1,blobs,euclidean,3,0.0272756420879182,ours_optimized_blocked,1e-07,True
+E0.1,blobs,euclidean,3,0.0272756420879182,ours_optimized_dedup,-1e-07,True
+E0.1,blobs,euclidean,3,0.0272756420879182,ours_optimized_dedup,1e-07,True
+E0.1,blobs,euclidean,5,0.0533813427369824,ours_brute,-1e-07,True
+E0.1,blobs,euclidean,5,0.0533813427369824,ours_brute,1e-07,True
+E0.1,blobs,euclidean,5,0.0533813427369824,ours_blocked,-1e-07,True
+E0.1,blobs,euclidean,5,0.0533813427369824,ours_blocked,1e-07,True
+E0.1,blobs,euclidean,5,0.0533813427369824,ours_optimized_blocked,-1e-07,True
+E0.1,blobs,euclidean,5,0.0533813427369824,ours_optimized_blocked,1e-07,True
+E0.1,blobs,euclidean,5,0.0533813427369824,ours_optimized_dedup,-1e-07,True
+E0.1,blobs,euclidean,5,0.0533813427369824,ours_optimized_dedup,1e-07,True
+E0.1,circles,euclidean,3,0.0365319259127904,ours_brute,-1e-07,True
+E0.1,circles,euclidean,3,0.0365319259127904,ours_brute,1e-07,True
+E0.1,circles,euclidean,3,0.0365319259127904,ours_blocked,-1e-07,True
+E0.1,circles,euclidean,3,0.0365319259127904,ours_blocked,1e-07,True
+E0.1,circles,euclidean,3,0.0365319259127904,ours_optimized_blocked,-1e-07,True
+E0.1,circles,euclidean,3,0.0365319259127904,ours_optimized_blocked,1e-07,True
+E0.1,circles,euclidean,3,0.0365319259127904,ours_optimized_dedup,-1e-07,True
+E0.1,circles,euclidean,3,0.0365319259127904,ours_optimized_dedup,1e-07,True
+E0.1,circles,euclidean,3,0.0538614938820988,ours_brute,-1e-07,True
+E0.1,circles,euclidean,3,0.0538614938820988,ours_brute,1e-07,True
+E0.1,circles,euclidean,3,0.0538614938820988,ours_blocked,-1e-07,True
+E0.1,circles,euclidean,3,0.0538614938820988,ours_blocked,1e-07,True
+E0.1,circles,euclidean,3,0.0538614938820988,ours_optimized_blocked,-1e-07,True
+E0.1,circles,euclidean,3,0.0538614938820988,ours_optimized_blocked,1e-07,True
+E0.1,circles,euclidean,3,0.0538614938820988,ours_optimized_dedup,-1e-07,True
+E0.1,circles,euclidean,3,0.0538614938820988,ours_optimized_dedup,1e-07,True
+E0.1,circles,euclidean,5,0.0954126337583125,ours_brute,-1e-07,True
+E0.1,circles,euclidean,5,0.0954126337583125,ours_brute,1e-07,True
+E0.1,circles,euclidean,5,0.0954126337583125,ours_blocked,-1e-07,True
+E0.1,circles,euclidean,5,0.0954126337583125,ours_blocked,1e-07,True
+E0.1,iris,euclidean,3,0.2371097726667904,ours_brute,-1e-07,True
+E0.1,iris,euclidean,3,0.2371097726667904,ours_brute,1e-07,True
+E0.1,iris,euclidean,3,0.2371097726667904,ours_blocked,-1e-07,True
+E0.1,iris,euclidean,3,0.2371097726667904,ours_blocked,1e-07,True
+E0.1,iris,euclidean,3,0.2371097726667904,ours_optimized_blocked,-1e-07,True
+E0.1,iris,euclidean,3,0.2371097726667904,ours_optimized_blocked,1e-07,True
+E0.1,iris,euclidean,3,0.2371097726667904,ours_optimized_dedup,-1e-07,True
+E0.1,iris,euclidean,3,0.2371097726667904,ours_optimized_dedup,1e-07,True
+E0.1,iris,euclidean,5,0.395999963013147,ours_brute,-1e-07,True
+E0.1,iris,euclidean,5,0.395999963013147,ours_brute,1e-07,True
+E0.1,iris,euclidean,5,0.395999963013147,ours_blocked,-1e-07,True
+E0.1,iris,euclidean,5,0.395999963013147,ours_blocked,1e-07,True
+E0.1,iris,euclidean,5,0.395999963013147,ours_optimized_blocked,-1e-07,True
+E0.1,iris,euclidean,5,0.395999963013147,ours_optimized_blocked,1e-07,True
+E0.1,iris,euclidean,5,0.395999963013147,ours_optimized_dedup,-1e-07,True
+E0.1,iris,euclidean,5,0.395999963013147,ours_optimized_dedup,1e-07,True
+E0.1,digits,minkowski,3,2.535515395340607,ours_brute,-1e-07,True
+E0.1,digits,minkowski,3,2.535515395340607,ours_brute,1e-07,True
+E0.1,digits,minkowski,3,2.535515395340607,ours_blocked,-1e-07,True
+E0.1,digits,minkowski,3,2.535515395340607,ours_blocked,1e-07,True
+E0.1,digits,minkowski,3,2.535515395340607,ours_optimized_blocked,-1e-07,True
+E0.1,digits,minkowski,3,2.535515395340607,ours_optimized_blocked,1e-07,True
+E0.1,digits,minkowski,3,2.535515395340607,ours_optimized_dedup,-1e-07,True
+E0.1,digits,minkowski,3,2.535515395340607,ours_optimized_dedup,1e-07,True
+E0.1,digits,minkowski,10,3.151630258156591,ours_brute,-1e-07,True
+E0.1,digits,minkowski,10,3.151630258156591,ours_brute,1e-07,True
+E0.1,digits,minkowski,10,3.151630258156591,ours_blocked,-1e-07,True
+E0.1,digits,minkowski,10,3.151630258156591,ours_blocked,1e-07,True
+E0.1,digits,minkowski,10,3.151630258156591,ours_optimized_blocked,-1e-07,True
+E0.1,digits,minkowski,10,3.151630258156591,ours_optimized_blocked,1e-07,True
+E0.1,digits,minkowski,10,3.151630258156591,ours_optimized_dedup,-1e-07,True
+E0.1,digits,minkowski,10,3.151630258156591,ours_optimized_dedup,1e-07,True
+E0.2,varied,cosine vs euclidean,3,1.0365723414063055e-06,ours_brute,-1e-07,True
+E0.2,varied,cosine vs euclidean,3,1.0365723414063055e-06,ours_brute,1e-07,True
+E0.2,varied,cosine vs euclidean,3,1.0365723414063055e-06,ours_blocked,-1e-07,True
+E0.2,varied,cosine vs euclidean,3,1.0365723414063055e-06,ours_blocked,1e-07,True
+E0.2,varied,cosine vs euclidean,3,1.0365723414063055e-06,ours_optimized_blocked,-1e-07,True
+E0.2,varied,cosine vs euclidean,3,1.0365723414063055e-06,ours_optimized_blocked,1e-07,True
+E0.2,varied,cosine vs euclidean,3,1.0365723414063055e-06,ours_optimized_dedup,-1e-07,True
+E0.2,varied,cosine vs euclidean,3,1.0365723414063055e-06,ours_optimized_dedup,1e-07,True
+E0.2,varied,cosine vs euclidean,3,1.0365723414063055e-06,sklearn_brute,-1e-07,True
+E0.2,varied,cosine vs euclidean,3,1.0365723414063055e-06,sklearn_brute,1e-07,True
+E0.2,varied,cosine vs euclidean,10,2.2949785382753163e-05,ours_brute,-1e-07,True
+E0.2,varied,cosine vs euclidean,10,2.2949785382753163e-05,ours_brute,1e-07,True
+E0.2,varied,cosine vs euclidean,10,2.2949785382753163e-05,ours_blocked,-1e-07,True
+E0.2,varied,cosine vs euclidean,10,2.2949785382753163e-05,ours_blocked,1e-07,True
+E0.2,varied,cosine vs euclidean,10,2.2949785382753163e-05,ours_optimized_blocked,-1e-07,True
+E0.2,varied,cosine vs euclidean,10,2.2949785382753163e-05,ours_optimized_blocked,1e-07,True
+E0.2,varied,cosine vs euclidean,10,2.2949785382753163e-05,ours_optimized_dedup,-1e-07,True
+E0.2,varied,cosine vs euclidean,10,2.2949785382753163e-05,ours_optimized_dedup,1e-07,True
+E0.2,varied,cosine vs euclidean,10,2.2949785382753163e-05,sklearn_brute,-1e-07,True
+E0.2,varied,cosine vs euclidean,10,2.2949785382753163e-05,sklearn_brute,1e-07,True
+E0.2,aniso,cosine vs euclidean,3,7.447671224181107e-08,ours_brute,-1e-07,True
+E0.2,aniso,cosine vs euclidean,3,7.447671224181107e-08,ours_brute,1e-07,True
+E0.2,aniso,cosine vs euclidean,3,7.447671224181107e-08,ours_blocked,-1e-07,True
+E0.2,aniso,cosine vs euclidean,3,7.447671224181107e-08,ours_blocked,1e-07,True
+E0.2,aniso,cosine vs euclidean,3,7.447671224181107e-08,ours_optimized_blocked,-1e-07,True
+E0.2,aniso,cosine vs euclidean,3,7.447671224181107e-08,ours_optimized_blocked,1e-07,True
+E0.2,aniso,cosine vs euclidean,3,7.447671224181107e-08,ours_optimized_dedup,-1e-07,True
+E0.2,aniso,cosine vs euclidean,3,7.447671224181107e-08,ours_optimized_dedup,1e-07,True
+E0.2,aniso,cosine vs euclidean,3,7.447671224181107e-08,sklearn_brute,-1e-07,True
+E0.2,aniso,cosine vs euclidean,3,7.447671224181107e-08,sklearn_brute,1e-07,True
+E0.2,aniso,cosine vs euclidean,3,2.338149490987984e-05,ours_brute,-1e-07,True
+E0.2,aniso,cosine vs euclidean,3,2.338149490987984e-05,ours_brute,1e-07,True
+E0.2,aniso,cosine vs euclidean,3,2.338149490987984e-05,ours_blocked,-1e-07,True
+E0.2,aniso,cosine vs euclidean,3,2.338149490987984e-05,ours_blocked,1e-07,True
+E0.2,aniso,cosine vs euclidean,3,2.338149490987984e-05,ours_optimized_blocked,-1e-07,True
+E0.2,aniso,cosine vs euclidean,3,2.338149490987984e-05,ours_optimized_blocked,1e-07,True
+E0.2,aniso,cosine vs euclidean,3,2.338149490987984e-05,ours_optimized_dedup,-1e-07,True
+E0.2,aniso,cosine vs euclidean,3,2.338149490987984e-05,ours_optimized_dedup,1e-07,True
+E0.2,aniso,cosine vs euclidean,3,2.338149490987984e-05,sklearn_brute,-1e-07,True
+E0.2,aniso,cosine vs euclidean,3,2.338149490987984e-05,sklearn_brute,1e-07,True
+E0.2,moons,cosine vs euclidean,5,1.5844282401755727e-05,ours_brute,-1e-07,True
+E0.2,moons,cosine vs euclidean,5,1.5844282401755727e-05,ours_brute,1e-07,True
+E0.2,moons,cosine vs euclidean,5,1.5844282401755727e-05,ours_blocked,-1e-07,True
+E0.2,moons,cosine vs euclidean,5,1.5844282401755727e-05,ours_blocked,1e-07,True
+E0.2,moons,cosine vs euclidean,5,1.5844282401755727e-05,ours_optimized_blocked,-1e-07,True
+E0.2,moons,cosine vs euclidean,5,1.5844282401755727e-05,ours_optimized_blocked,1e-07,True
+E0.2,moons,cosine vs euclidean,5,1.5844282401755727e-05,ours_optimized_dedup,-1e-07,True
+E0.2,moons,cosine vs euclidean,5,1.5844282401755727e-05,ours_optimized_dedup,1e-07,True
+E0.2,moons,cosine vs euclidean,5,1.5844282401755727e-05,sklearn_brute,-1e-07,True
+E0.2,moons,cosine vs euclidean,5,1.5844282401755727e-05,sklearn_brute,1e-07,True
+E0.2,no_structure,cosine vs euclidean,5,5.347876489181225e-05,ours_optimized_blocked,-1e-07,True
+E0.2,no_structure,cosine vs euclidean,5,5.347876489181225e-05,ours_optimized_blocked,1e-07,True
+E0.2,no_structure,cosine vs euclidean,5,5.347876489181225e-05,ours_optimized_dedup,-1e-07,True
+E0.2,no_structure,cosine vs euclidean,5,5.347876489181225e-05,ours_optimized_dedup,1e-07,True
+E0.2,no_structure,cosine vs euclidean,5,5.347876489181225e-05,sklearn_brute,-1e-07,True
+E0.2,no_structure,cosine vs euclidean,5,5.347876489181225e-05,sklearn_brute,1e-07,True
+E0.2,digits,cosine vs euclidean,5,0.1899677293708812,ours_brute,-1e-07,True
+E0.2,digits,cosine vs euclidean,5,0.1899677293708812,ours_brute,1e-07,True
+E0.2,digits,cosine vs euclidean,5,0.1899677293708812,ours_blocked,-1e-07,True
+E0.2,digits,cosine vs euclidean,5,0.1899677293708812,ours_blocked,1e-07,True
+E0.2,digits,cosine vs euclidean,5,0.1899677293708812,ours_optimized_blocked,-1e-07,True
+E0.2,digits,cosine vs euclidean,5,0.1899677293708812,ours_optimized_blocked,1e-07,True
+E0.2,digits,cosine vs euclidean,5,0.1899677293708812,ours_optimized_dedup,-1e-07,True
+E0.2,digits,cosine vs euclidean,5,0.1899677293708812,ours_optimized_dedup,1e-07,True
