@@ -11,11 +11,14 @@ import argparse
 import json
 import statistics
 import time
+from contextlib import nullcontext
+from pathlib import Path
 
 import numpy as np
 from sklearn.datasets import make_blobs
 
 from .implementations import get_implementation
+from .memory_monitor import MemorySampler
 
 WARM_UP_POINTS: int = 50
 
@@ -55,6 +58,8 @@ def measure(
     eps: float,
     min_samples: int,
     repeats: int,
+    memory_trace_file: str | None = None,
+    memory_interval_ms: float = 20,
 ) -> tuple[float, float, np.ndarray]:
     """Devuelve (segundos, MB de memoria extra en el pico, etiquetas)."""
     implementation = get_implementation(implementation_name)
@@ -68,10 +73,17 @@ def measure(
     memory_before_kb = read_memory_kb("VmRSS")
 
     seconds = []
-    for _ in range(repeats):
-        start = time.perf_counter()
-        labels = implementation.run(X, eps, min_samples, metric)
-        seconds.append(time.perf_counter() - start)
+    sampler = (
+        MemorySampler(memory_interval_ms / 1000)
+        if memory_trace_file is not None else None
+    )
+    with sampler if sampler is not None else nullcontext():
+        for _ in range(repeats):
+            start = time.perf_counter()
+            labels = implementation.run(X, eps, min_samples, metric)
+            seconds.append(time.perf_counter() - start)
+    if sampler is not None and memory_trace_file is not None:
+        sampler.write_csv(Path(memory_trace_file))
 
     peak_kb = read_memory_kb("VmHWM")
     extra_mb = max(peak_kb - memory_before_kb, 0) / 1024
@@ -88,6 +100,8 @@ def main() -> None:
     parser.add_argument("--min-samples", type=int, required=True)
     parser.add_argument("--repeats", type=int, required=True)
     parser.add_argument("--labels-file", required=True)
+    parser.add_argument("--memory-trace-file")
+    parser.add_argument("--memory-interval-ms", type=float, default=20)
     args = parser.parse_args()
 
     seconds, memory_mb, labels = measure(
@@ -98,6 +112,8 @@ def main() -> None:
         args.eps,
         args.min_samples,
         args.repeats,
+        args.memory_trace_file,
+        args.memory_interval_ms,
     )
     np.save(args.labels_file, labels)
     print(json.dumps({"seconds": seconds, "memory_mb": memory_mb}))

@@ -77,6 +77,8 @@ def run_case(
     eps: float,
     repeats: int,
     threads: int | None,
+    memory_trace_dir: Path | None = None,
+    memory_interval_ms: float = 20,
 ) -> tuple[dict, np.ndarray] | None:
     """Mide un caso en un proceso aparte. Devuelve ``None`` si falla."""
     environment = os.environ.copy()
@@ -89,6 +91,12 @@ def run_case(
 
     with tempfile.TemporaryDirectory() as folder:
         labels_file = os.path.join(folder, "labels.npy")
+        trace_file = None
+        if memory_trace_dir is not None:
+            memory_trace_dir.mkdir(parents=True, exist_ok=True)
+            trace_file = memory_trace_dir / (
+                f"{scenario.name}__{implementation_name}__{n_samples}.csv"
+            )
         command = [
             sys.executable, "-m", "dbscan_implementation.profiling.measure",
             "--implementation", implementation_name,
@@ -100,6 +108,11 @@ def run_case(
             "--repeats", str(repeats),
             "--labels-file", labels_file,
         ]
+        if trace_file is not None:
+            command.extend([
+                "--memory-trace-file", str(trace_file),
+                "--memory-interval-ms", str(memory_interval_ms),
+            ])
         try:
             process = subprocess.run(
                 command, capture_output=True, text=True, env=environment,
@@ -132,6 +145,14 @@ def main() -> None:
         "--threads", type=int, default=None,
         help="limita los hilos de las librerías (por defecto, sin límite)",
     )
+    parser.add_argument(
+        "--memory-trace-dir", type=Path, default=None,
+        help="guarda una traza RSS CSV por caso",
+    )
+    parser.add_argument(
+        "--memory-interval-ms", type=float, default=20,
+        help="intervalo de muestreo RSS en milisegundos",
+    )
     args = parser.parse_args()
 
     RESULTS_DIR.mkdir(exist_ok=True)
@@ -158,6 +179,8 @@ def main() -> None:
                 result = run_case(
                     name, scenario, n_samples, eps, args.repeats,
                     args.threads,
+                    args.memory_trace_dir,
+                    args.memory_interval_ms,
                 )
                 if result is None:
                     failed.add(name)

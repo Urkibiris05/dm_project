@@ -22,9 +22,9 @@ from .implementations import IMPLEMENTATIONS  # noqa: E402
 # ``IMPLEMENTATIONS``. El marcador permite distinguirlas sin ver el color.
 COLORS: list[str] = [
     "#2a78d6", "#eb6834", "#1baf7a", "#eda100",
-    "#e87ba4", "#008300", "#6250d6", "#e34948",
+    "#e87ba4", "#008300", "#6250d6", "#e34948", "#795548",
 ]
-MARKERS: list[str] = ["o", "s", "^", "D", "v", "P", "X", "*"]
+MARKERS: list[str] = ["o", "s", "^", "D", "v", "P", "X", "*", "h"]
 
 SURFACE: str = "#fcfcfb"
 TEXT: str = "#0b0b0b"

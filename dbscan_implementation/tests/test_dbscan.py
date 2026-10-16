@@ -10,6 +10,7 @@ from dbscan_implementation.distances import MinkowskiDistance, get_distance
 from dbscan_implementation.neighbors import (
     BlockedBruteForceSearch,
     BruteForceSearch,
+    OptimizedBlockedBruteForceSearch,
 )
 
 
@@ -115,6 +116,37 @@ def test_blocked_matches_brute_neighborhoods(metric: str) -> None:
 def test_blocked_rejects_invalid_block_size() -> None:
     with pytest.raises(ValueError):
         BlockedBruteForceSearch(block_size=0)
+
+
+@pytest.mark.parametrize("metric", ["euclidean", "cosine", "manhattan"])
+def test_optimized_blocked_matches_brute_neighborhoods(metric: str) -> None:
+    X = DATASETS["blobs"]
+    distance = get_distance(metric)
+    eps = 0.4 if metric != "cosine" else 0.01
+
+    expected = BruteForceSearch().fit(X, distance).radius_neighbors(eps)
+    optimized = OptimizedBlockedBruteForceSearch(block_size=7)
+    result = optimized.fit(X, distance).radius_neighbors(eps)
+
+    for got, want in zip(result, expected):
+        assert np.array_equal(got, want)
+
+
+def test_optimized_blocked_memory_limit_selects_block_size() -> None:
+    X = np.ones((100, 4))
+    search = OptimizedBlockedBruteForceSearch(memory_limit_mb=0.01)
+    search.fit(X, get_distance("euclidean"))
+    assert search.block_size_ >= 1
+    assert search.block_size_ < len(X)
+
+
+def test_optimized_expansion_matches_default() -> None:
+    X = DATASETS["moons"]
+    default = DBSCAN(eps=0.2, min_samples=5).fit_predict(X)
+    optimized = DBSCAN(
+        eps=0.2, min_samples=5, deduplicate_queue=True
+    ).fit_predict(X)
+    assert np.array_equal(optimized, default)
 
 
 def test_small_example() -> None:

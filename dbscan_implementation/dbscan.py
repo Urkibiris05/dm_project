@@ -60,12 +60,14 @@ class DBSCAN:
         metric: str | Distance = "euclidean",
         p: float | None = None,
         algorithm: str | NeighborSearch = "brute",
+        deduplicate_queue: bool = False,
     ) -> None:
         self.eps = eps
         self.min_samples = min_samples
         self.metric = metric
         self.p = p
         self.algorithm = algorithm
+        self.deduplicate_queue = deduplicate_queue
 
     def fit(self, X: ArrayLike) -> Self:
         """Agrupa los puntos de ``X`` y guarda el resultado en ``labels_``."""
@@ -94,7 +96,7 @@ class DBSCAN:
 
         # Paso 3: formar los clusters.
         self.labels_: np.ndarray = self._expand_clusters(
-            neighborhoods, is_core
+            neighborhoods, is_core, self.deduplicate_queue
         )
         self.core_sample_indices_: np.ndarray = np.flatnonzero(is_core)
         self.components_: np.ndarray = X[self.core_sample_indices_].copy()
@@ -108,6 +110,7 @@ class DBSCAN:
     def _expand_clusters(
         neighborhoods: list[np.ndarray],
         is_core: np.ndarray,
+        deduplicate_queue: bool = False,
     ) -> np.ndarray:
         """Asigna una etiqueta a cada punto a partir de los vecindarios.
 
@@ -118,6 +121,7 @@ class DBSCAN:
         n_points = len(neighborhoods)
         labels = np.full(n_points, NOISE, dtype=int)
         cluster = 0
+        queued = np.zeros(n_points, dtype=bool) if deduplicate_queue else None
 
         for start in range(n_points):
             if labels[start] != NOISE or not is_core[start]:
@@ -125,6 +129,8 @@ class DBSCAN:
 
             # Puntos pendientes de visitar dentro del cluster actual.
             pending = [start]
+            if queued is not None:
+                queued[start] = True
             while pending:
                 point = pending.pop()
                 if labels[point] != NOISE:
@@ -136,8 +142,12 @@ class DBSCAN:
                 # vecinos.
                 if is_core[point]:
                     for neighbor in neighborhoods[point]:
-                        if labels[neighbor] == NOISE:
+                        if labels[neighbor] == NOISE and (
+                            queued is None or not queued[neighbor]
+                        ):
                             pending.append(neighbor)
+                            if queued is not None:
+                                queued[neighbor] = True
 
             cluster += 1
 

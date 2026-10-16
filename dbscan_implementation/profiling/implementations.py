@@ -10,12 +10,20 @@ ruido marcado como -1.
 from collections.abc import Callable
 from dataclasses import dataclass
 
-import dbscan as dbscan_python
-import mlpack
 import numpy as np
 from sklearn.cluster import DBSCAN as SklearnDBSCAN
 
 from dbscan_implementation import DBSCAN
+
+try:
+    import dbscan as dbscan_python
+except ImportError:
+    dbscan_python = None
+
+try:
+    import mlpack
+except ImportError:
+    mlpack = None
 
 Runner = Callable[[np.ndarray, float, int, str], np.ndarray]
 
@@ -45,6 +53,19 @@ def run_ours_blocked(
 ) -> np.ndarray:
     model = DBSCAN(
         eps=eps, min_samples=min_samples, metric=metric, algorithm="blocked"
+    )
+    return model.fit_predict(X)
+
+
+def run_ours_optimized_blocked(
+    X: np.ndarray, eps: float, min_samples: int, metric: str
+) -> np.ndarray:
+    model = DBSCAN(
+        eps=eps,
+        min_samples=min_samples,
+        metric=metric,
+        algorithm="optimized_blocked",
+        deduplicate_queue=True,
     )
     return model.fit_predict(X)
 
@@ -81,6 +102,11 @@ def run_dbscan_python(
 ) -> np.ndarray:
     # Paquete "dbscan" de PyPI: implementación paralela, solo euclídea
     # y con 20 dimensiones como máximo.
+    if dbscan_python is None:
+        raise ImportError(
+            "Falta el paquete opcional dbscan; instala "
+            "dbscan_implementation/profiling/requirements.txt"
+        )
     labels, _ = dbscan_python.DBSCAN(X, eps=eps, min_samples=min_samples)
     return np.asarray(labels)
 
@@ -89,6 +115,11 @@ def run_mlpack(
     X: np.ndarray, eps: float, min_samples: int, naive: bool
 ) -> np.ndarray:
     # mlpack solo trabaja con distancia euclídea.
+    if mlpack is None:
+        raise ImportError(
+            "Falta el paquete opcional mlpack; instala "
+            "dbscan_implementation/profiling/requirements.txt"
+        )
     output = mlpack.dbscan(
         input_=X, epsilon=eps, min_size=min_samples, naive=naive
     )
@@ -143,6 +174,12 @@ IMPLEMENTATIONS: list[Implementation] = [
     ),
     Implementation(
         "ours_blocked", "Nuestro (por bloques)", run_ours_blocked,
+        ("euclidean", "cosine"),
+    ),
+    Implementation(
+        "ours_optimized_blocked",
+        "Nuestro (bloques optimizados)",
+        run_ours_optimized_blocked,
         ("euclidean", "cosine"),
     ),
 ]
