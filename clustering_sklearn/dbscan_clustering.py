@@ -11,12 +11,16 @@ from sklearn.metrics import (
 )
 
 
-def seleccionar_columna_clase(df) -> str | None:
-    """Detecta la columna de clase en el DataFrame."""
-    if "disorder" in df.columns:
-        return "disorder"
-    if "trastorno" in df.columns:
-        return "trastorno"
+def seleccionar_columna_clase(df, preferida: str = "label") -> str | None:
+    """Devuelve la columna de evaluación solicitada si está disponible.
+
+    ``label`` representa el riesgo anotado. ``disorder``/``trastorno`` se
+    mantienen como alternativas explícitas para analizar el subcorpus.
+    """
+    candidatos = [preferida, "label", "disorder", "trastorno"]
+    for columna in dict.fromkeys(candidatos):
+        if columna in df.columns:
+            return columna
     return None
 
 
@@ -60,7 +64,8 @@ def process_vectorization(
     metric: str = "euclidean",
     max_noise_ratio: float = 0.45,
     min_clusters: int = 2,
-    max_clusters: int = 30
+    max_clusters: int = 30,
+    label_column: str = "label",
 ) -> dict:
     """Ejecuta DBSCAN con barrido de percentiles para una vectorización."""
     if percentiles is None:
@@ -75,7 +80,7 @@ def process_vectorization(
     print(f"  Analizando: {nombre} ({info['info_red']})")
     print(f"{'='*75}")
 
-    col_clase = seleccionar_columna_clase(df)
+    col_clase = seleccionar_columna_clase(df, label_column)
     y_real = df[col_clase].astype("category").cat.codes.values if col_clase else None
 
     mejor_resultado = None

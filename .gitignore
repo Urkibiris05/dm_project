@@ -8,3 +8,5 @@ estado_del_arte***
 CLAUDE.md
 # Cachés de embeddings y de pysentimiento (se regeneran)
 .cache/
+# Vectorizaciones generadas localmente
+vectorizations/

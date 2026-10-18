@@ -23,7 +23,6 @@ from clustering_sklearn.visualize_clusters import graficar_clusters_2d
 BASE_DIR = Path("./vectorizations")
 MIN_SAMPLES = 15
 METRIC = "euclidean"
-ALGORITHM = "brute"  # "brute" o "blocked" (implementación propia)
 
 
 def main():
@@ -33,7 +32,7 @@ def main():
     print(f"  Directorio base: {BASE_DIR}")
     print(f"  Min samples (k): {MIN_SAMPLES}")
     print(f"  Métrica: {METRIC}")
-    print(f"  Algoritmo: {ALGORITHM}")
+    print("  Algoritmo: scikit-learn")
     print("=" * 75)
 
     timer = PhaseTimer()
@@ -48,7 +47,7 @@ def main():
     print("\n" + "=" * 75)
     print("  PASO 2: CLUSTERING DBSCAN")
     print("=" * 75)
-    resultados = apply_clustering(datos_procesados, metric=METRIC, algorithm=ALGORITHM)
+    resultados = apply_clustering(datos_procesados, metric=METRIC)
 
     # Paso 3: Visualización de resultados
     print("\n" + "=" * 75)
