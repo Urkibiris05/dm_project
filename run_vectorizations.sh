@@ -59,10 +59,57 @@ run_vectorization() {
 }
 
 # --- E1: TF-IDF (palabra y caracteres), por mensaje y por usuario ---
-run_vectorization tfidf --unit message --analyzer word
-run_vectorization tfidf --unit message --analyzer char_wb
-run_vectorization tfidf --unit user --analyzer word
-run_vectorization tfidf --unit user --analyzer char_wb
+# Una vectorización por trastorno: el vocabulario y la SVD se ajustan solo
+# con los textos de ese trastorno.
+run_vectorization tfidf --disorders Ansiedad --unit message --analyzer word
+run_vectorization tfidf --disorders Ansiedad --unit message --analyzer char_wb
+run_vectorization tfidf --disorders Ansiedad --unit user --analyzer word
+run_vectorization tfidf --disorders Ansiedad --unit user --analyzer char_wb
+run_vectorization tfidf --disorders Depresion --unit message --analyzer word
+run_vectorization tfidf --disorders Depresion --unit message --analyzer char_wb
+run_vectorization tfidf --disorders Depresion --unit user --analyzer word
+run_vectorization tfidf --disorders Depresion --unit user --analyzer char_wb
+run_vectorization tfidf --disorders TCA --unit message --analyzer word
+run_vectorization tfidf --disorders TCA --unit message --analyzer char_wb
+run_vectorization tfidf --disorders TCA --unit user --analyzer word
+run_vectorization tfidf --disorders TCA --unit user --analyzer char_wb
+# E1: barrido de la dimension de la SVD (la de 128 son las 12 lineas de arriba)
+run_vectorization tfidf --disorders Ansiedad --unit message --analyzer word --svd 32
+run_vectorization tfidf --disorders Ansiedad --unit message --analyzer char_wb --svd 32
+run_vectorization tfidf --disorders Ansiedad --unit user --analyzer word --svd 32
+run_vectorization tfidf --disorders Ansiedad --unit user --analyzer char_wb --svd 32
+run_vectorization tfidf --disorders Depresion --unit message --analyzer word --svd 32
+run_vectorization tfidf --disorders Depresion --unit message --analyzer char_wb --svd 32
+run_vectorization tfidf --disorders Depresion --unit user --analyzer word --svd 32
+run_vectorization tfidf --disorders Depresion --unit user --analyzer char_wb --svd 32
+run_vectorization tfidf --disorders TCA --unit message --analyzer word --svd 32
+run_vectorization tfidf --disorders TCA --unit message --analyzer char_wb --svd 32
+run_vectorization tfidf --disorders TCA --unit user --analyzer word --svd 32
+run_vectorization tfidf --disorders TCA --unit user --analyzer char_wb --svd 32
+run_vectorization tfidf --disorders Ansiedad --unit message --analyzer word --svd 64
+run_vectorization tfidf --disorders Ansiedad --unit message --analyzer char_wb --svd 64
+run_vectorization tfidf --disorders Ansiedad --unit user --analyzer word --svd 64
+run_vectorization tfidf --disorders Ansiedad --unit user --analyzer char_wb --svd 64
+run_vectorization tfidf --disorders Depresion --unit message --analyzer word --svd 64
+run_vectorization tfidf --disorders Depresion --unit message --analyzer char_wb --svd 64
+run_vectorization tfidf --disorders Depresion --unit user --analyzer word --svd 64
+run_vectorization tfidf --disorders Depresion --unit user --analyzer char_wb --svd 64
+run_vectorization tfidf --disorders TCA --unit message --analyzer word --svd 64
+run_vectorization tfidf --disorders TCA --unit message --analyzer char_wb --svd 64
+run_vectorization tfidf --disorders TCA --unit user --analyzer word --svd 64
+run_vectorization tfidf --disorders TCA --unit user --analyzer char_wb --svd 64
+run_vectorization tfidf --disorders Ansiedad --unit message --analyzer word --svd 300
+run_vectorization tfidf --disorders Ansiedad --unit message --analyzer char_wb --svd 300
+run_vectorization tfidf --disorders Ansiedad --unit user --analyzer word --svd 300
+run_vectorization tfidf --disorders Ansiedad --unit user --analyzer char_wb --svd 300
+run_vectorization tfidf --disorders Depresion --unit message --analyzer word --svd 300
+run_vectorization tfidf --disorders Depresion --unit message --analyzer char_wb --svd 300
+run_vectorization tfidf --disorders Depresion --unit user --analyzer word --svd 300
+run_vectorization tfidf --disorders Depresion --unit user --analyzer char_wb --svd 300
+run_vectorization tfidf --disorders TCA --unit message --analyzer word --svd 300
+run_vectorization tfidf --disorders TCA --unit message --analyzer char_wb --svd 300
+run_vectorization tfidf --disorders TCA --unit user --analyzer word --svd 300
+run_vectorization tfidf --disorders TCA --unit user --analyzer char_wb --svd 300
 
 # --- E2: encoders por mensaje ---
 run_vectorization transformer --model minilm --unit message
@@ -90,9 +137,12 @@ run_vectorization features --unit user --affect 0.5 --time 0.5
 
 # --- Variantes de preprocesado, de trastorno y de ajuste ---
 run_vectorization transformer --model minilm --unit message --emojis remove
-run_vectorization tfidf --unit message --analyzer char_wb --emojis remove
-run_vectorization tfidf --unit user --analyzer char_wb --disorders TCA
+run_vectorization tfidf --disorders Ansiedad --unit message --analyzer char_wb --emojis remove
+run_vectorization tfidf --disorders Depresion --unit message --analyzer char_wb --emojis remove
+run_vectorization tfidf --disorders TCA --unit message --analyzer char_wb --emojis remove
 run_vectorization transformer --model minilm --unit message --disorders Depresion
-run_vectorization tfidf --unit message --analyzer char_wb --fit-on train
+# --fit-on train (E8): Ansiedad solo tiene Test, así que no se puede.
+run_vectorization tfidf --disorders Depresion --unit message --analyzer char_wb --fit-on train
+run_vectorization tfidf --disorders TCA --unit message --analyzer char_wb --fit-on train
 
 echo "Tiempos en $TIMES_FILE"

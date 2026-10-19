@@ -32,9 +32,14 @@ class DBSCAN:
     p : float, opcional
         Exponente de Minkowski. Solo se usa con ``metric="minkowski"``.
     algorithm : str o NeighborSearch
-        Cómo se buscan los vecinos: ``"brute"`` (matriz completa n x n) o
-        ``"blocked"`` (por bloques, sin guardar la matriz); también se puede
-        pasar un objeto ``NeighborSearch`` propio.
+        Cómo se buscan los vecinos: ``"brute"`` (matriz completa n x n),
+        ``"blocked"`` (por bloques, sin guardar la matriz) u
+        ``"optimized_blocked"`` (por bloques; con euclídea compara distancias
+        al cuadrado y con coseno compara productos escalares); también se
+        puede pasar un objeto ``NeighborSearch`` propio.
+    deduplicate_queue : bool
+        Si es ``True``, un punto no se mete dos veces en la cola de expansión.
+        No cambia las etiquetas, solo evita trabajo repetido.
 
     Atributos (disponibles después de ``fit``)
     ------------------------------------------

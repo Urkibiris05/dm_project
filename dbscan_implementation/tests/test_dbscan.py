@@ -25,7 +25,9 @@ def make_datasets() -> dict[str, np.ndarray]:
 DATASETS = make_datasets()
 
 
-@pytest.mark.parametrize("algorithm", ["brute", "blocked"])
+@pytest.mark.parametrize(
+    "algorithm", ["brute", "blocked", "optimized_blocked"]
+)
 @pytest.mark.parametrize("dataset", ["blobs", "moons"])
 @pytest.mark.parametrize(
     "params",
@@ -50,6 +52,29 @@ def test_matches_sklearn(dataset: str, params: dict, algorithm: str) -> None:
         ours.core_sample_indices_, theirs.core_sample_indices_
     )
     assert np.array_equal(ours.components_, theirs.components_)
+
+
+@pytest.mark.parametrize("dataset", ["blobs", "moons"])
+@pytest.mark.parametrize(
+    "params",
+    [
+        {"eps": 0.5, "min_samples": 5, "metric": "euclidean"},
+        {"eps": 0.3, "min_samples": 10, "metric": "euclidean"},
+        {"eps": 0.01, "min_samples": 5, "metric": "cosine"},
+    ],
+)
+def test_optimized_dedup_matches_sklearn(dataset: str, params: dict) -> None:
+    X = DATASETS[dataset]
+
+    ours = DBSCAN(
+        algorithm="optimized_blocked", deduplicate_queue=True, **params
+    ).fit(X)
+    theirs = SklearnDBSCAN(algorithm="brute", **params).fit(X)
+
+    assert np.array_equal(ours.labels_, theirs.labels_)
+    assert np.array_equal(
+        ours.core_sample_indices_, theirs.core_sample_indices_
+    )
 
 
 @pytest.mark.parametrize("algorithm", ["brute", "blocked"])

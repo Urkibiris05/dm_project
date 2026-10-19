@@ -77,8 +77,10 @@ deduplicada) con euclídea. Hay 34 discrepancias, **todas** en casos con pares a
 distancia ≈ eps (`n_boundary_pairs > 0`), y **las 34 desaparecen** (68/68) al
 desplazar eps 1e-7: son empates de coma flotante (cada implementación calcula la
 distancia con un redondeo distinto y decide distinto si `d ≤ eps` cuando `d = eps`
-al límite de la precisión), no errores del algoritmo. Los núcleos casi siempre
-coinciden; las diferencias son pocos puntos (ARI mínimo 0,938).
+al límite de la precisión), no errores del algoritmo. En esos casos algún punto
+gana o pierde la condición de núcleo por el empate, pero las diferencias son
+pocos puntos (como mucho 5 de ruido y 1 de frontera; ARI mediano 0,994, mínimo
+0,938 en iris, donde n = 150).
 
 **E0.2.** La identidad `d² = 2·d_cos` se cumple con error máximo 1,3e-15. Con
 vectores normalizados el 97,8 % de los casos da la misma partición (`brute`,
