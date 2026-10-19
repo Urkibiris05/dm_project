@@ -1,0 +1,342 @@
+{
+  "corpus": "MentalRiskEs2023/corpus",
+  "filas": 28085,
+  "trastornos": {
+    "Depresion": 12066,
+    "TCA": 10499,
+    "Ansiedad": 5520
+  },
+  "particiones": {
+    "Test": 14893,
+    "Train": 12179,
+    "Trial": 1013
+  },
+  "clases_por_sujeto": [
+    {
+      "trastorno": "Ansiedad",
+      "dataset_type": "Test",
+      "class_name": "control",
+      "sujetos": 57,
+      "porcentaje": 38.0
+    },
+    {
+      "trastorno": "Ansiedad",
+      "dataset_type": "Test",
+      "class_name": "suffer",
+      "sujetos": 93,
+      "porcentaje": 62.0
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Test",
+      "class_name": "control",
+      "sujetos": 81,
+      "porcentaje": 54.0
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Test",
+      "class_name": "suffer+against",
+      "sujetos": 32,
+      "porcentaje": 21.333
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Test",
+      "class_name": "suffer+in favour",
+      "sujetos": 32,
+      "porcentaje": 21.333
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Test",
+      "class_name": "suffer+other",
+      "sujetos": 5,
+      "porcentaje": 3.333
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Train",
+      "class_name": "control",
+      "sujetos": 81,
+      "porcentaje": 46.286
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Train",
+      "class_name": "suffer+against",
+      "sujetos": 44,
+      "porcentaje": 25.143
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Train",
+      "class_name": "suffer+in favour",
+      "sujetos": 44,
+      "porcentaje": 25.143
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Train",
+      "class_name": "suffer+other",
+      "sujetos": 6,
+      "porcentaje": 3.429
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Trial",
+      "class_name": "control",
+      "sujetos": 4,
+      "porcentaje": 40.0
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Trial",
+      "class_name": "suffer+against",
+      "sujetos": 2,
+      "porcentaje": 20.0
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Trial",
+      "class_name": "suffer+in favour",
+      "sujetos": 2,
+      "porcentaje": 20.0
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Trial",
+      "class_name": "suffer+other",
+      "sujetos": 2,
+      "porcentaje": 20.0
+    },
+    {
+      "trastorno": "TCA",
+      "dataset_type": "Test",
+      "class_name": "control",
+      "sujetos": 86,
+      "porcentaje": 57.333
+    },
+    {
+      "trastorno": "TCA",
+      "dataset_type": "Test",
+      "class_name": "suffer",
+      "sujetos": 64,
+      "porcentaje": 42.667
+    },
+    {
+      "trastorno": "TCA",
+      "dataset_type": "Train",
+      "class_name": "control",
+      "sujetos": 101,
+      "porcentaje": 57.714
+    },
+    {
+      "trastorno": "TCA",
+      "dataset_type": "Train",
+      "class_name": "suffer",
+      "sujetos": 74,
+      "porcentaje": 42.286
+    },
+    {
+      "trastorno": "TCA",
+      "dataset_type": "Trial",
+      "class_name": "control",
+      "sujetos": 5,
+      "porcentaje": 50.0
+    },
+    {
+      "trastorno": "TCA",
+      "dataset_type": "Trial",
+      "class_name": "suffer",
+      "sujetos": 5,
+      "porcentaje": 50.0
+    }
+  ],
+  "clases_por_mensaje": [
+    {
+      "trastorno": "Ansiedad",
+      "dataset_type": "Test",
+      "class_name": "control",
+      "mensajes": 2222,
+      "porcentaje": 40.254
+    },
+    {
+      "trastorno": "Ansiedad",
+      "dataset_type": "Test",
+      "class_name": "suffer",
+      "mensajes": 3298,
+      "porcentaje": 59.746
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Test",
+      "class_name": "control",
+      "mensajes": 2825,
+      "porcentaje": 54.39
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Test",
+      "class_name": "suffer+against",
+      "mensajes": 1072,
+      "porcentaje": 20.639
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Test",
+      "class_name": "suffer+in favour",
+      "mensajes": 1154,
+      "porcentaje": 22.218
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Test",
+      "class_name": "suffer+other",
+      "mensajes": 143,
+      "porcentaje": 2.753
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Train",
+      "class_name": "control",
+      "mensajes": 3135,
+      "porcentaje": 50.176
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Train",
+      "class_name": "suffer+against",
+      "mensajes": 1457,
+      "porcentaje": 23.319
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Train",
+      "class_name": "suffer+in favour",
+      "mensajes": 1524,
+      "porcentaje": 24.392
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Train",
+      "class_name": "suffer+other",
+      "mensajes": 132,
+      "porcentaje": 2.113
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Trial",
+      "class_name": "control",
+      "mensajes": 327,
+      "porcentaje": 52.404
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Trial",
+      "class_name": "suffer+against",
+      "mensajes": 136,
+      "porcentaje": 21.795
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Trial",
+      "class_name": "suffer+in favour",
+      "mensajes": 35,
+      "porcentaje": 5.609
+    },
+    {
+      "trastorno": "Depresion",
+      "dataset_type": "Trial",
+      "class_name": "suffer+other",
+      "mensajes": 126,
+      "porcentaje": 20.192
+    },
+    {
+      "trastorno": "TCA",
+      "dataset_type": "Test",
+      "class_name": "control",
+      "mensajes": 2959,
+      "porcentaje": 70.806
+    },
+    {
+      "trastorno": "TCA",
+      "dataset_type": "Test",
+      "class_name": "suffer",
+      "mensajes": 1220,
+      "porcentaje": 29.194
+    },
+    {
+      "trastorno": "TCA",
+      "dataset_type": "Train",
+      "class_name": "control",
+      "mensajes": 3399,
+      "porcentaje": 57.309
+    },
+    {
+      "trastorno": "TCA",
+      "dataset_type": "Train",
+      "class_name": "suffer",
+      "mensajes": 2532,
+      "porcentaje": 42.691
+    },
+    {
+      "trastorno": "TCA",
+      "dataset_type": "Trial",
+      "class_name": "control",
+      "mensajes": 228,
+      "porcentaje": 58.612
+    },
+    {
+      "trastorno": "TCA",
+      "dataset_type": "Trial",
+      "class_name": "suffer",
+      "mensajes": 161,
+      "porcentaje": 41.388
+    }
+  ],
+  "calidad_datos": {
+    "filas_totales": 28085,
+    "mensajes_nulos_o_vacios": 0,
+    "mensajes_duplicados_exactos": 31,
+    "archivos_subject": 820
+  },
+  "longitud_palabras": {
+    "count": 28085.0,
+    "mean": 14.699,
+    "std": 26.378,
+    "min": 1.0,
+    "25%": 6.0,
+    "50%": 9.0,
+    "75%": 16.0,
+    "max": 899.0
+  },
+  "vocabulario": {
+    "tokens_totales": 382124.0,
+    "vocabulario_unico": 26785.0,
+    "hapax_legomena": 14810.0,
+    "porcentaje_hapax_sobre_vocabulario": 55.292
+  },
+  "mensajes_cortos": {
+    "mensajes_hasta_3_palabras": 122.0,
+    "emoticonos_o_emojis": 34.0,
+    "porcentaje_emoticonos": 27.869
+  },
+  "palabras_mas_frecuentes": {
+    "de": 13924,
+    "que": 13846,
+    "y": 11039,
+    "no": 9024,
+    "la": 7651,
+    "a": 7545,
+    "me": 6966,
+    "es": 6196,
+    "en": 5820,
+    "el": 5506,
+    "lo": 5012,
+    "con": 4422,
+    "un": 3968,
+    "pero": 3905,
+    "si": 3802
+  }
+}

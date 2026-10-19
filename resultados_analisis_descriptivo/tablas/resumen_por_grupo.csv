@@ -1,0 +1,8 @@
+dataset_type,trastorno,mensajes,sujetos,palabras_media,palabras_mediana,palabras_desv_std,palabras_min,palabras_max
+Test,Ansiedad,5520,150,15.558,10.0,20.566,1,628
+Test,Depresion,5194,150,13.936,8.0,19.868,1,368
+Test,TCA,4179,150,14.13,9.0,21.245,2,894
+Train,Depresion,6248,175,14.12,9.0,24.76,1,783
+Train,TCA,5931,175,15.437,9.0,38.189,2,899
+Trial,Depresion,624,10,12.912,9.0,13.329,3,201
+Trial,TCA,389,10,19.72,9.0,41.137,3,753

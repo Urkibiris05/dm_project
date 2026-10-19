@@ -22,6 +22,11 @@ MODEL_ALIASES: dict[str, str] = {
     "minilm": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
     "e5": "intfloat/multilingual-e5-small",
     "beto-sts": "hiiamsid/sentence_similarity_spanish_es",
+    "robertuito": "pysentimiento/robertuito-base-uncased",
+    "robertuito-base-uncased": "pysentimiento/robertuito-base-uncased",
+    "beto-raw": "dccuchile/bert-base-spanish-wwm-uncased",
+    "roberta-base-bne": "PlanTL-GOB-ES/roberta-base-bne",
+    "robertalex": "PlanTL-GOB-ES/RoBERTalex",
     "modernbert": ("mrm8488/modernbert-embed-base-ft-sts-spanish-"
                    "matryoshka-768-64"),
 }
@@ -29,7 +34,9 @@ MODEL_ALIASES: dict[str, str] = {
 # Palabras por bloque para que el bloque no se trunque (≈0,7 palabras por
 # token). MiniLM corta en 128 tokens; los demás admiten 512.
 BLOCK_WORDS: dict[str, int] = {
-    "minilm": 90, "e5": 350, "beto-sts": 350, "modernbert": 350,
+    "minilm": 90, "e5": 350, "beto-sts": 350,
+    "robertuito": 350, "robertuito-base-uncased": 350, "beto-raw": 350,
+    "roberta-base-bne": 350, "robertalex": 350, "modernbert": 350,
 }
 DEFAULT_BLOCK_WORDS: int = 200
 
@@ -100,6 +107,8 @@ def make_encoder(
 
     def encode(texts: list[str]) -> np.ndarray:
         """Codifica una lista de textos con el modelo (en CPU)."""
+        if hf_name == MODEL_ALIASES["roberta-base-bne"]:
+            return encode_roberta_bne(texts, batch_size, device, state)
         if "model" not in state:
             try:
                 from sentence_transformers import SentenceTransformer
@@ -111,11 +120,56 @@ def make_encoder(
             if truncate_dim is not None:
                 options["truncate_dim"] = truncate_dim
             state["model"] = SentenceTransformer(hf_name, **options)
+            if hf_name == MODEL_ALIASES["robertuito-base-uncased"]:
+                transformer = state["model"][0]
+                transformer.max_seq_length = 128
+                transformer.tokenizer.model_max_length = 128
         return state["model"].encode(
             texts, batch_size=batch_size, show_progress_bar=True,
             convert_to_numpy=True, normalize_embeddings=False)
 
     return encode
+
+
+def encode_roberta_bne(
+    texts: list[str],
+    batch_size: int,
+    device: str,
+    state: dict,
+) -> np.ndarray:
+    """Codifica RoBERTa-BNE, cuyo config antiguo no declara ``model_type``."""
+    if "model" not in state:
+        from transformers import RobertaModel, RobertaTokenizer
+
+        target_device = resolve_device(device)
+        state["tokenizer"] = RobertaTokenizer.from_pretrained(
+            MODEL_ALIASES["roberta-base-bne"])
+        state["model"] = RobertaModel.from_pretrained(
+            MODEL_ALIASES["roberta-base-bne"]).to(target_device)
+        state["model"].eval()
+
+    import torch
+
+    tokenizer = state["tokenizer"]
+    model = state["model"]
+    target_device = next(model.parameters()).device
+    vectors: list[np.ndarray] = []
+    with torch.inference_mode():
+        for start in range(0, len(texts), batch_size):
+            batch = tokenizer(
+                texts[start:start + batch_size],
+                padding=True,
+                truncation=True,
+                max_length=512,
+                return_tensors="pt",
+            )
+            batch = {key: value.to(target_device)
+                     for key, value in batch.items()}
+            output = model(**batch).last_hidden_state
+            mask = batch["attention_mask"].unsqueeze(-1)
+            pooled = (output * mask).sum(dim=1) / mask.sum(dim=1).clamp_min(1)
+            vectors.append(pooled.cpu().numpy())
+    return np.concatenate(vectors, axis=0)
 
 
 def cache_path(

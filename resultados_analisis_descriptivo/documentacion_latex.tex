@@ -1,0 +1,221 @@
+% Requiere en el preámbulo:
+% \usepackage{booktabs}
+% \usepackage{graphicx}
+% \usepackage{tabularx}
+% \usepackage{float}
+% \usepackage{siunitx}
+%
+% Ajustar la ruta si esta carpeta no está junto al documento principal.
+
+\section{Análisis descriptivo del corpus}
+\label{sec:analisis-descriptivo}
+
+Se realizó un análisis descriptivo del corpus MentalRiskES a partir de los
+archivos JSON disponibles en las particiones \textit{Train}, \textit{Trial} y
+\textit{Test}. Cada fila del conjunto de datos representa un mensaje y se
+conservaron como metadatos el trastorno, la partición y el identificador del
+sujeto. En total se analizaron 28\,085 mensajes pertenecientes a 820 sujetos.
+
+\subsection{Composición del corpus}
+
+La distribución de mensajes por trastorno fue la siguiente: 12\,066 mensajes
+de depresión (42,96\%), 10\,499 de trastornos de la conducta alimentaria
+(TCA; 37,38\%) y 5\,520 de ansiedad (19,66\%). Por partición, el conjunto de
+\textit{Test} contiene 14\,893 mensajes (53,02\%), \textit{Train} 12\,179
+(43,36\%) y \textit{Trial} 1\,013 (3,61\%).
+
+\begin{table}[H]
+    \centering
+    \caption{Número de mensajes por trastorno y partición.}
+    \label{tab:distribucion-trastorno-particion}
+    \begin{tabular}{lrrr}
+        \toprule
+        Trastorno & Train & Trial & Test \\
+        \midrule
+        Ansiedad  & 0 & 0 & 5\,520 \\
+        Depresión & 6\,248 & 624 & 5\,194 \\
+        TCA       & 5\,931 & 389 & 4\,179 \\
+        \midrule
+        Total     & 12\,179 & 1\,013 & 14\,893 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.88\textwidth]{images/Analisis_descriptivo/distribucion_particion_trastorno.png}
+    \caption{Mapa de calor del número de mensajes por partición y trastorno.}
+    \label{fig:distribucion-trastorno-particion}
+\end{figure}
+
+\subsection{Distribución de las clases}
+\label{sec:distribucion-clases}
+
+La distribución de clases se calculó respetando el esquema de anotación
+específico de cada trastorno. Para ansiedad y TCA se utilizó la etiqueta
+binaria de \texttt{gold\_a.txt}, con las categorías \textit{control} y
+\textit{suffer}. Para depresión se utilizó la variable clínica de
+\texttt{gold\_c.txt}, que distingue entre \textit{control},
+\textit{suffer+in favour}, \textit{suffer+against} y
+\textit{suffer+other}. Los porcentajes de la Tabla~\ref{tab:clases-sujetos}
+se calculan sobre sujetos, mientras que los de la
+Tabla~\ref{tab:clases-mensajes} se calculan sobre mensajes.
+
+\begin{table}[H]
+    \centering
+    \caption{Distribución de clases por sujeto y partición. Los valores se
+    expresan como número de sujetos y porcentaje dentro de cada combinación
+    de trastorno y partición.}
+    \label{tab:clases-sujetos}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{llrrrrrr}
+        \toprule
+        Trastorno & Partición & Control & Suffer &
+        Suffer+in favour & Suffer+against & Suffer+other & Total \\
+        \midrule
+        Ansiedad  & Test  & 57 (38,0\%) & 93 (62,0\%) & -- & -- & -- & 150 \\
+        \midrule
+        Depresión & Train & 81 (46,3\%) & -- & 44 (25,1\%) &
+        44 (25,1\%) & 6 (3,4\%) & 175 \\
+        Depresión & Trial & 4 (40,0\%) & -- & 2 (20,0\%) &
+        2 (20,0\%) & 2 (20,0\%) & 10 \\
+        Depresión & Test  & 81 (54,0\%) & -- & 32 (21,3\%) &
+        32 (21,3\%) & 5 (3,3\%) & 150 \\
+        \midrule
+        TCA       & Train & 101 (57,7\%) & 74 (42,3\%) & -- & -- & -- & 175 \\
+        TCA       & Trial & 5 (50,0\%) & 5 (50,0\%) & -- & -- & -- & 10 \\
+        TCA       & Test  & 86 (57,3\%) & 64 (42,7\%) & -- & -- & -- & 150 \\
+        \bottomrule
+    \end{tabular}%
+    }
+\end{table}
+
+\noindent
+\footnotesize
+\textit{Nota:} ``--'' indica que esa categoría no forma parte del esquema de
+anotación del trastorno o que no aparece en la partición correspondiente. En
+ansiedad y TCA las clases son binarias (\textit{control} y \textit{suffer}).
+En depresión se emplean las cuatro categorías clínicas de
+\texttt{gold\_c.txt}. La columna ``Total'' permite comprobar que los
+recuentos de cada fila suman el número total de sujetos de la partición.
+\normalsize
+
+\begin{table}[H]
+    \centering
+    \caption{Distribución de clases por mensaje.}
+    \label{tab:clases-mensajes}
+    \scriptsize
+    \begin{tabular}{llrrrrr}
+        \toprule
+        Trastorno & Partición & Control & Suffer & Suffer+in favour &
+        Suffer+against & Suffer+other \\
+        \midrule
+        Ansiedad  & Test  & 2\,222 (40,3\%) & 3\,298 (59,7\%) & -- & -- & -- \\
+        Depresión & Train & 3\,135 (50,2\%) & -- & 1\,524 (24,4\%) &
+        1\,457 (23,3\%) & 132 (2,1\%) \\
+        Depresión & Trial & 327 (52,4\%) & -- & 35 (5,6\%) &
+        136 (21,8\%) & 126 (20,2\%) \\
+        Depresión & Test  & 2\,825 (54,4\%) & -- & 1\,154 (22,2\%) &
+        1\,072 (20,6\%) & 143 (2,8\%) \\
+        TCA       & Train & 3\,399 (57,3\%) & 2\,532 (42,7\%) & -- & -- & -- \\
+        TCA       & Trial & 228 (58,6\%) & 161 (41,4\%) & -- & -- & -- \\
+        TCA       & Test  & 2\,959 (70,8\%) & 1\,220 (29,2\%) & -- & -- & -- \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{images/Analisis_descriptivo/distribucion_clases.png}
+    \caption{Composición porcentual de las clases anotadas por trastorno y partición.}
+    \label{fig:distribucion-clases}
+\end{figure}
+
+La comparación entre las tablas por sujeto y por mensaje muestra que la
+distribución de mensajes no coincide necesariamente con la distribución de
+sujetos. Esto se debe a que los sujetos presentan un número variable de
+mensajes. Por ejemplo, en el conjunto de \textit{Test} de TCA la clase
+\textit{control} representa el 57,3\% de los sujetos, pero el 70,8\% de los
+mensajes.
+
+\subsection{Calidad de los datos}
+
+No se detectaron mensajes nulos ni cadenas vacías. Se identificaron 31
+mensajes duplicados exactos al comparar el contenido textual de los mensajes,
+sin utilizar los identificadores de mensaje para dicha comparación. Estos
+duplicados no se eliminaron, ya que pueden corresponder a repeticiones
+legítimas en conversaciones distintas.
+
+\subsection{Longitud de los mensajes}
+
+La longitud se calculó como el número de palabras separadas por espacios. La
+longitud media fue de 14,70 palabras y la mediana de 9 palabras, con una
+desviación estándar de 26,38. El primer y tercer cuartil fueron 6 y 16
+palabras, respectivamente, mientras que el mensaje más largo alcanzó 899
+palabras. La diferencia entre la media y la mediana, junto con el máximo
+observado, indica una distribución asimétrica con presencia de mensajes
+considerablemente más largos.
+
+\begin{table}[H]
+    \centering
+    \caption{Estadísticas descriptivas de la longitud de los mensajes.}
+    \label{tab:longitud-mensajes}
+    \begin{tabular}{lr}
+        \toprule
+        Estadístico & Palabras \\
+        \midrule
+        Número de mensajes & 28\,085 \\
+        Media & 14,70 \\
+        Desviación estándar & 26,38 \\
+        Mínimo & 1 \\
+        Primer cuartil (Q1) & 6 \\
+        Mediana & 9 \\
+        Tercer cuartil (Q3) & 16 \\
+        Máximo & 899 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Como representación gráfica de la longitud de los mensajes se utiliza un
+diagrama de cajas. La Figura~\ref{fig:boxplot-longitud} muestra la mediana,
+el rango intercuartílico y los valores atípicos de cada combinación de
+trastorno y partición. Para mejorar la legibilidad, el eje vertical se limita
+al percentil 99 de la longitud global; los mensajes que superan este valor no
+se eliminan del análisis y sí se incluyen en las tablas descriptivas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/Analisis_descriptivo/boxplot_longitud_por_grupo.png}
+    \caption{Diagrama de cajas de la longitud de los mensajes por trastorno y partición.}
+    \label{fig:boxplot-longitud}
+\end{figure}
+
+El boxplot permite observar que la distribución de la longitud es asimétrica
+en todos los grupos: las medianas se sitúan entre 8 y 10 palabras, mientras
+que existe una cola de mensajes más extensos. Esta variabilidad es
+especialmente relevante para el preprocesamiento, ya que una representación
+basada únicamente en la longitud media podría ocultar la diferencia entre
+mensajes breves y mensajes largos con mayor contenido discursivo.
+
+Se detectaron 122 mensajes de tres palabras o menos. De ellos, 34 (27,87\%)
+fueron clasificados heurísticamente como emoticonos o emojis, mediante
+patrones textuales y descripciones frecuentes de emojis. Esta identificación
+es aproximada y no debe interpretarse como una anotación manual.
+
+\subsection{Vocabulario}
+
+La tokenización básica produjo 382\,124 tokens y un vocabulario de 26\,785
+palabras únicas. De estas, 14\,810 aparecen una sola vez
+(\textit{hapax legomena}), lo que representa el 55,29\% del vocabulario. Las
+palabras más frecuentes fueron ``de'', ``que'', ``y'', ``no'', ``la'', ``a'',
+``me'', ``es'', ``en'' y ``el''. La elevada proporción de palabras con
+frecuencia uno sugiere una notable diversidad léxica y justifica evaluar
+normalización, filtrado de ruido y tratamiento de variantes ortográficas antes
+de entrenar modelos de representación textual.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{images/Analisis_descriptivo/palabras_mas_frecuentes.png}
+    \caption{Quince palabras más frecuentes del corpus, representadas mediante un gráfico de tipo \textit{lollipop}.}
+    \label{fig:palabras-frecuentes}
+\end{figure}

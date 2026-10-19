@@ -49,6 +49,11 @@ class DBSCAN:
         Índices de los puntos núcleo.
     components_ : array de forma (n_nucleos, n_dimensiones)
         Copia de los puntos núcleo.
+    core_sample_labels_ : array de forma (n_nucleos,)
+        Etiqueta del cluster de cada punto núcleo, en el mismo orden que
+        ``core_sample_indices_`` y ``components_``.
+    n_features_in_ : int
+        Número de dimensiones de los datos usados para ajustar el modelo.
 
     Ejemplo
     -------
@@ -105,11 +110,53 @@ class DBSCAN:
         )
         self.core_sample_indices_: np.ndarray = np.flatnonzero(is_core)
         self.components_: np.ndarray = X[self.core_sample_indices_].copy()
+        self.core_sample_labels_: np.ndarray = self.labels_[
+            self.core_sample_indices_
+        ].copy()
+        self.n_features_in_: int = X.shape[1]
         return self
 
     def fit_predict(self, X: ArrayLike) -> np.ndarray:
         """Agrupa los puntos de ``X`` y devuelve la etiqueta de cada uno."""
         return self.fit(X).labels_
+
+    def assign(self, X: ArrayLike) -> np.ndarray:
+        """Asigna a cada punto nuevo el cluster de su núcleo más cercano.
+
+        Un punto se asigna al cluster de un punto núcleo a distancia
+        ``<= eps``. Si no hay ningún núcleo suficientemente cercano, se
+        devuelve ``-1`` (ruido). Esta operación no modifica los clusters
+        aprendidos: una nueva instancia no puede convertirse en punto núcleo
+        ni conectar dos clusters ya existentes.
+
+        ``X`` debe tener forma ``(n_puntos, n_dimensiones)``. Solo se
+        conservan los puntos núcleo y sus etiquetas, por lo que no hace falta
+        guardar todo el conjunto usado en ``fit``.
+        """
+        if not hasattr(self, "components_"):
+            raise ValueError("El modelo debe ajustarse con fit antes de assign")
+
+        X = np.asarray(X, dtype=float)
+        if X.ndim != 2:
+            raise ValueError(
+                "X debe ser una tabla de forma (n_puntos, n_dimensiones)"
+            )
+        if X.shape[1] != self.n_features_in_:
+            raise ValueError(
+                "X debe tener el mismo número de dimensiones que los datos "
+                f"de fit ({self.n_features_in_}, no {X.shape[1]})"
+            )
+
+        labels = np.full(len(X), NOISE, dtype=int)
+        if len(X) == 0 or len(self.components_) == 0:
+            return labels
+
+        distance = get_distance(self.metric, self.p)
+        distances = distance.pairwise(X, self.components_)
+        nearest_core = np.argmin(distances, axis=1)
+        within_eps = distances[np.arange(len(X)), nearest_core] <= self.eps
+        labels[within_eps] = self.core_sample_labels_[nearest_core[within_eps]]
+        return labels
 
     @staticmethod
     def _expand_clusters(

@@ -1,0 +1,21 @@
+,trastorno,dataset_type,class_name,mensajes,porcentaje
+0,Ansiedad,Test,control,2222,40.254
+1,Ansiedad,Test,suffer,3298,59.746
+2,Depresion,Test,control,2825,54.39
+3,Depresion,Test,suffer+against,1072,20.639
+4,Depresion,Test,suffer+in favour,1154,22.218
+5,Depresion,Test,suffer+other,143,2.753
+6,Depresion,Train,control,3135,50.176
+7,Depresion,Train,suffer+against,1457,23.319
+8,Depresion,Train,suffer+in favour,1524,24.392
+9,Depresion,Train,suffer+other,132,2.113
+10,Depresion,Trial,control,327,52.404
+11,Depresion,Trial,suffer+against,136,21.795
+12,Depresion,Trial,suffer+in favour,35,5.609
+13,Depresion,Trial,suffer+other,126,20.192
+14,TCA,Test,control,2959,70.806
+15,TCA,Test,suffer,1220,29.194
+16,TCA,Train,control,3399,57.309
+17,TCA,Train,suffer,2532,42.691
+18,TCA,Trial,control,228,58.612
+19,TCA,Trial,suffer,161,41.388

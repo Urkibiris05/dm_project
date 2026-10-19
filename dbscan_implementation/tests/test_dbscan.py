@@ -180,6 +180,32 @@ def test_small_example() -> None:
     assert labels.tolist() == [0, 0, 0, 1, 1, -1]
 
 
+def test_assign_uses_core_points_and_returns_noise_when_outside_eps() -> None:
+    X = np.array([[0.0, 0.0], [0.5, 0.0], [10.0, 10.0], [10.5, 10.0]])
+    model = DBSCAN(eps=1, min_samples=2).fit(X)
+
+    assigned = model.assign([[0.2, 0.0], [10.2, 10.0], [50.0, 50.0]])
+
+    assert assigned.tolist() == [0, 1, -1]
+    assert np.array_equal(model.core_sample_labels_, [0, 0, 1, 1])
+
+
+def test_assign_uses_nearest_core_for_overlapping_clusters() -> None:
+    X = np.array([[0.0], [0.1], [1.0], [1.1]])
+    model = DBSCAN(eps=0.15, min_samples=2).fit(X)
+
+    assert model.assign([[0.08], [1.02]]).tolist() == [0, 1]
+
+
+def test_assign_requires_fit_and_matching_dimensions() -> None:
+    with pytest.raises(ValueError, match="ajustarse"):
+        DBSCAN().assign([[0.0]])
+
+    model = DBSCAN(eps=1, min_samples=1).fit([[0.0, 0.0]])
+    with pytest.raises(ValueError, match="mismo número de dimensiones"):
+        model.assign([[0.0]])
+
+
 def test_all_noise() -> None:
     X = DATASETS["blobs"]
     model = DBSCAN(eps=1e-6, min_samples=5).fit(X)

@@ -1,0 +1,21 @@
+,trastorno,dataset_type,class_name,sujetos,porcentaje
+0,Ansiedad,Test,control,57,38.0
+1,Ansiedad,Test,suffer,93,62.0
+2,Depresion,Test,control,81,54.0
+3,Depresion,Test,suffer+against,32,21.333
+4,Depresion,Test,suffer+in favour,32,21.333
+5,Depresion,Test,suffer+other,5,3.333
+6,Depresion,Train,control,81,46.286
+7,Depresion,Train,suffer+against,44,25.143
+8,Depresion,Train,suffer+in favour,44,25.143
+9,Depresion,Train,suffer+other,6,3.429
+10,Depresion,Trial,control,4,40.0
+11,Depresion,Trial,suffer+against,2,20.0
+12,Depresion,Trial,suffer+in favour,2,20.0
+13,Depresion,Trial,suffer+other,2,20.0
+14,TCA,Test,control,86,57.333
+15,TCA,Test,suffer,64,42.667
+16,TCA,Train,control,101,57.714
+17,TCA,Train,suffer,74,42.286
+18,TCA,Trial,control,5,50.0
+19,TCA,Trial,suffer,5,50.0

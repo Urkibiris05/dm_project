@@ -1,0 +1,5 @@
+dataset_type,Ansiedad,Depresion,TCA,Total
+Test,5520,5194,4179,14893
+Train,0,6248,5931,12179
+Trial,0,624,389,1013
+Total,5520,12066,10499,28085

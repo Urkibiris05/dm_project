@@ -70,3 +70,25 @@ def test_e5_uses_query_prefix_and_pca_reduces_dimension(
     matrix, pca, _ = transformer.vectorize(df, units, mask, args, tmp_path)
     assert matrix.shape == (len(units.texts), 2)
     assert pca is not None
+
+
+@pytest.mark.parametrize(
+    ("alias", "hf_name"),
+    [
+        ("robertuito", "pysentimiento/robertuito-base-uncased"),
+        ("robertuito-base-uncased", "pysentimiento/robertuito-base-uncased"),
+        ("beto-raw", "dccuchile/bert-base-spanish-wwm-uncased"),
+        ("roberta-base-bne", "PlanTL-GOB-ES/roberta-base-bne"),
+        ("robertalex", "PlanTL-GOB-ES/RoBERTalex"),
+    ],
+)
+def test_spanish_transformer_aliases_resolve(
+        alias: str, hf_name: str) -> None:
+    """Los alias de los encoders base apuntan a sus modelos de Hugging Face."""
+    assert transformer.resolve_model(alias) == (hf_name, "")
+
+
+def test_roberta_bne_uses_explicit_model_loader() -> None:
+    """RoBERTa-BNE conserva su alias aunque requiera carga explícita."""
+    assert transformer.MODEL_ALIASES["roberta-base-bne"] == (
+        "PlanTL-GOB-ES/roberta-base-bne")

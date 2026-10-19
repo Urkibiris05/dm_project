@@ -115,6 +115,9 @@ run_vectorization tfidf --disorders TCA --unit user --analyzer char_wb --svd 300
 run_vectorization transformer --model minilm --unit message
 run_vectorization transformer --model e5 --unit message
 run_vectorization transformer --model beto-sts --unit message
+run_vectorization transformer --model robertuito-base-uncased --unit message
+run_vectorization transformer --model beto-raw --unit message
+run_vectorization transformer --model robertalex --unit message
 
 # --- E3 / P2: construcción del vector de usuario ---
 run_vectorization transformer --model minilm --unit user --user-pooling concat
@@ -125,6 +128,9 @@ run_vectorization transformer --model e5 --unit user --user-pooling concat
 run_vectorization transformer --model e5 --unit user --user-pooling mean
 run_vectorization transformer --model e5 --unit user --user-pooling max
 run_vectorization transformer --model e5 --unit user --user-pooling blocks
+run_vectorization transformer --model robertuito-base-uncased --unit user --user-pooling mean
+run_vectorization transformer --model beto-raw --unit user --user-pooling mean
+run_vectorization transformer --model robertalex --unit user --user-pooling mean
 
 # --- E6 / P3: bloque afectivo (pysentimiento) y de hora, con peso ---
 run_vectorization transformer --model minilm --unit message --affect 0.1
