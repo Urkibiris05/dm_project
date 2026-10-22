@@ -88,6 +88,7 @@ def dbcv(
     metric: str = "cosine",
     max_points: int | None = 3000,
     seed: int = 0,
+    p: float | None = None,
 ) -> float:
     """Calcula el DBCV de una partición (el ruido es la etiqueta -1).
 
@@ -102,7 +103,7 @@ def dbcv(
     cluster_ids = [c for c in np.unique(labels) if c != NOISE]
     if len(cluster_ids) < 2:
         return float("nan")
-    distance = get_distance(metric)
+    distance = get_distance(metric, p)
     n_dims = points.shape[1]
 
     # Por cluster: puntos, distancias núcleo, nodos internos y dispersión.

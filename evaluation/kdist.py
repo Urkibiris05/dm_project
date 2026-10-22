@@ -14,6 +14,7 @@ def kdist(
     k: int,
     metric: str = "cosine",
     block_size: int = 1024,
+    p: float | None = None,
 ) -> np.ndarray:
     """Distancia de cada punto a su k-ésimo vecino, contando el propio punto.
 
@@ -26,12 +27,13 @@ def kdist(
     n_points = len(points)
     if not 1 <= k <= n_points:
         raise ValueError(f"k debe estar entre 1 y {n_points}, no {k}")
-    distance = get_distance(metric)
+    distance = get_distance(metric, p)
     result = np.empty(n_points)
     for start in range(0, n_points, block_size):
         block = distance.pairwise(points[start:start + block_size], points)
         result[start:start + block_size] = np.partition(
-            block, k - 1, axis=1)[:, k - 1]
+            block, k - 1, axis=1
+        )[:, k - 1]
     return result
 
 
@@ -68,6 +70,7 @@ def relative_contrast(
     metric: str = "cosine",
     n_queries: int = 1000,
     seed: int = 0,
+    p: float | None = None,
 ) -> float:
     """Mediana de (D_max - D_min) / D_min sobre consultas aleatorias.
 
@@ -79,13 +82,14 @@ def relative_contrast(
     rng = np.random.default_rng(seed)
     n_queries = min(n_queries, len(points))
     queries = rng.choice(len(points), size=n_queries, replace=False)
-    distances = get_distance(metric).pairwise(points[queries], points)
+    distances = get_distance(metric, p).pairwise(points[queries], points)
     contrasts = []
     for row in distances:
         positive = row[row > 1e-12]
         if len(positive) >= 2:
-            contrasts.append((positive.max() - positive.min())
-                             / positive.min())
+            contrasts.append(
+                (positive.max() - positive.min()) / positive.min()
+            )
     return float(np.median(contrasts)) if contrasts else float("nan")
 
 

@@ -36,6 +36,7 @@ def internal_metrics(
     metric: str = "cosine",
     sample_size: int = 3000,
     seed: int = 0,
+    p: float | None = None,
 ) -> dict:
     """DBCV (con todos los puntos) y otros índices internos sin el ruido.
 
@@ -46,7 +47,7 @@ def internal_metrics(
     points = np.asarray(X, dtype=float)
     labels = np.asarray(labels)
     result = {
-        "dbcv": dbcv(points, labels, metric, sample_size, seed),
+        "dbcv": dbcv(points, labels, metric, sample_size, seed, p=p),
         "silhouette": float("nan"),
         "davies_bouldin": float("nan"),
         "calinski_harabasz": float("nan"),
@@ -63,8 +64,22 @@ def internal_metrics(
             clustered, clustered_labels, sample_size, seed)
     if len(np.unique(sample_labels)) >= 2 and len(sample) > len(
             np.unique(sample_labels)):
-        result["silhouette"] = float(silhouette_score(
-            sample, sample_labels, metric=metric))
+        try:
+            if metric == "minkowski" and p is not None:
+                result["silhouette"] = float(silhouette_score(
+                    sample,
+                    sample_labels,
+                    metric=metric,
+                    metric_params={"p": p},
+                ))
+            else:
+                result["silhouette"] = float(silhouette_score(
+                    sample,
+                    sample_labels,
+                    metric=metric,
+                ))
+        except TypeError:
+            result["silhouette"] = float("nan")
     result["davies_bouldin"] = float(
         davies_bouldin_score(clustered, clustered_labels))
     result["calinski_harabasz"] = float(
