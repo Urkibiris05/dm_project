@@ -5,6 +5,7 @@ from .config import (
     FIGURES_DIR,
     MAX_SAMPLES_DEFAULT,
     MIN_SAMPLES_DEFAULT,
+    MIN_SAMPLES_VALUES,
     P_VALUES,
     RESULTS_DIR,
 )
@@ -20,6 +21,7 @@ __all__ = [
     "FIGURES_DIR",
     "MAX_SAMPLES_DEFAULT",
     "MIN_SAMPLES_DEFAULT",
+    "MIN_SAMPLES_VALUES",
     "P_VALUES",
     "RESULTS_DIR",
     "resolve_vectorization_dir",

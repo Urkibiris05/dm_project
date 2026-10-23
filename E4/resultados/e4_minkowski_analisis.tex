@@ -1,0 +1,77 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{graphicx}
+
+\title{Análisis de sensibilidad a la métrica Minkowski en DBSCAN}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Objetivo}
+
+El experimento E4 analiza cómo cambia la calidad del clustering cuando se modifica el exponente de la distancia Minkowski dentro de DBSCAN. En particular, se compara la evolución del número de clusters, la tasa de ruido y las métricas de validación interna y externa para distintos valores de $p$ y, en algunos casos, con normalización L2 previa. Este estudio permite determinar si la geometría del espacio cambia la estructura densa detectada por el algoritmo y si la elección de la métrica afecta la interpretabilidad de los grupos resultantes.
+
+\section{Casos representativos}
+
+En la Tabla~\ref{tab:casos} se muestran cinco configuraciones de interés extraídas del conjunto de resultados de la ejecución de E4. Se han seleccionado casos que ilustran: un ajuste ligeramente aceptable, dos configuraciones con separación débil, un caso con exceso de ruido y un caso con tendencia a la degeneración en un único cluster.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\begin{tabular}{cccccccccc}
+\toprule
+$p$ & $\epsilon$ & $n_c$ & ruido & $f_{cluster}$ & DBCV & Silhouette & DB & CH & AMI \\
+\midrule
+0.2 & $4.18\times 10^{12}$ & 3 & 0.3498 & 0.6480 & 0.0218 & -- & 1.5890 & 6.5077 & 0.0050 \\
+0.5 & $1.02\times 10^{4}$ & 2 & 0.5080 & 0.4902 & 0.0710 & -- & 1.6133 & 10.9351 & 0.0021 \\
+1.0 & 15.7714 & 2 & 0.5156 & 0.4826 & 0.0789 & -- & 1.6099 & 11.0010 & 0.0028 \\
+2.0 & 0.6297 & 3 & 0.8314 & 0.1660 & 0.0064 & -- & 2.0212 & 6.8211 & 0.0034 \\
+$\infty$ & 0.0927 & 2 & 0.1432 & 0.8556 & 0.1069 & -- & 1.6688 & 6.4961 & 0.0002 \\
+\bottomrule
+\end{tabular}
+\caption{Configuraciones representativas del experimento E4 para distintos valores de $p$.}
+\label{tab:casos}
+\end{table}
+
+\section{Comentario formal sobre los resultados}
+
+El caso con $p=1.0$ presenta la mejor relación entre compactación y separación relativa dentro de las configuraciones consideradas. Con $\epsilon \approx 15.77$, el algoritmo produce dos grupos y una tasa de ruido cercana al 51\%, lo que indica que una parte relevante de las instancias no se asocia a ninguna estructura densa. Aun así, el valor de DBCV es ligeramente superior al observado en $p=0.5$ y claramente mejor que el de $p=2.0$. Este comportamiento sugiere que la distancia euclídea es capaz de producir una partición más estable que la métrica de mayor exponente, aunque la proporción de ruido sigue siendo elevada y, por tanto, la estructura final no puede considerarse muy robusta desde una perspectiva de clustering no supervisado.
+
+En cambio, el caso con $p=0.5$ ofrece una tendencia similar, aunque con una densidad de ruido aún mayor. El número de clusters cae a dos y la fracción del cluster mayor es prácticamente equilibrada, lo que sugiere que la separación entre grupos no es nítida. La métrica DBCV, en torno a $0.07$, es moderada y no alcanza niveles que permitan sostener una conclusión fuerte sobre una agrupación clara. El hecho de que el índice de Davies-Bouldin sea cercano a $1.61$ y el Calinski-Harabasz se sitúe en torno a $11$ confirma que la separación intercluster es tenue, y que la asignación resultante está fuertemente condicionada por la presencia de ruido.
+
+El valor $p=2.0$ resulta claramente menos adecuado para este conjunto de datos. Con $\epsilon \approx 0.63$, el algoritmo genera tres grupos pero la tasa de ruido alcanza $0.8314$, lo cual significa que más del 83\% de las instancias se etiquetan como ruido. Este fenómeno es especialmente preocupante en un problema de clustering, porque la partición deja prácticamente sin estructura la mayor parte del conjunto. La métrica DBCV se aproxima a $0.006$ y, por lo tanto, se acerca a un valor casi nulo, indicando que la densidad interna de los grupos no supera la dispersión entre ellos. En términos interpretativos, la solución es poco fiable: la mayor parte de los puntos no quedan asignados y la estructura detectada es demasiado frágil para ser considerada un agrupamiento útil.
+
+Por otro lado, el caso con $p=0.2$ ofrece un comportamiento intermedio. Aunque el número de clusters es tres y la tasa de ruido se reduce a $0.35$, la fracción del cluster más grande alcanza $0.648$, lo que evidencia que uno de los grupos domina claramente la partición. En otras palabras, la estructura detectada no es equilibrada y existe un riesgo de que el algoritmo esté absorbiendo gran parte del conjunto en una sola agrupación. Además, el valor de DBCV, cercano a $0.022$, es bajo, lo que indica que la separación de densidades es débil. Este caso sirve como ejemplo de una solución que parece estable en términos de número de grupos, pero que no ofrece una organización clara ni homogénea del espacio vectorial.
+
+Finalmente, el caso con $p=\infty$ es un ejemplo de degeneración. La tasa de ruido es solo del $14.32\%$, pero la fracción del cluster más grande alcanza $0.8556$, lo que indica que la partición está dominada por un único grupo. El valor de DBCV, aunque es el más alto de los casos analizados ($0.1069$), no debe interpretarse como una evidencia fuerte de calidad: la mayor parte de los puntos quedan agrupados en una estructura muy poco diferenciada, y la separación real entre grupos es limitada. En este sentido, el indicador interno mejora con respecto a otros exponentes, pero la distribución de tamaños y la ausencia de una organización equilibrada sugieren que la solución sigue siendo insuficiente para un análisis semántico útil.
+
+En conjunto, la evidencia apunta a que los exponentes intermedios, en particular $p=1.0$ y $p=0.5$, ofrecen las soluciones más competitivas desde el punto de vista de DBSCAN. No obstante, ninguna de las configuraciones analizadas presenta un nivel de calidad suficientemente alto para afirmar que el clustering es claramente sólido. La presencia constante de ruido elevado y la falta de alineación con las etiquetas externas sugieren que el problema no es solo de elección de métrica, sino también de la naturaleza del espacio de representación y de la dispersión de los datos.
+
+\section{Análisis de la adecuación de las métricas}
+
+Las métricas internas son adecuadas para este caso, pero deben utilizarse con criterio. DBCV es la métrica más apropiada porque está diseñada para evaluar particiones generadas por algoritmos basados en densidad, como DBSCAN, y tiene en cuenta la presencia de ruido. En nuestro experimento, la mayor parte de las soluciones presentan tasas de ruido considerables, por lo que métricas tradicionales como silhouette, Davies-Bouldin o Calinski-Harabasz resultan menos fiables si se aplican directamente sobre el conjunto completo. En efecto, estas últimas no saben tratar el ruido y, por ello, se calculan solo sobre los puntos etiquetados como cluster, dejando fuera exactamente la información más relevante para DBSCAN. Esto puede inducir a interpretaciones engañosas cuando el algoritmo identifica una fracción grande del conjunto como ruido.
+
+Por este motivo, el criterio principal de selección debe ser DBCV junto con la estructura resumida del clustering: número de clusters, tasa de ruido y fracción del cluster mayor. Esta combinación ofrece una visión más fiel del comportamiento del algoritmo en presencia de ruido. La consideración de DBCV como métrica principal es especialmente razonable en un contexto de densidad, ya que prioriza la calidad estructural de los grupos frente a una simple separación geométrica en el espacio euclídeo.
+
+Las métricas externas, en cambio, son útiles como comprobación complementaria, pero no constituyen la referencia principal para este problema. ARI y AMI comparan la partición obtenida con etiquetas del corpus, pero en esta configuración las etiquetas no se consideran una verdad absoluta, sino una referencia imperfecta con un acuerdo moderado entre anotadores. Además, al tratar el ruido como una categoría adicional o excluirlo según la variante evaluada, estas métricas pueden penalizar decisiones válidas del algoritmo que no coinciden con la codificación de referencia. En los resultados analizados, los valores de ARI y AMI son muy cercanos a cero o incluso negativos, lo que indica que la concordancia con las etiquetas es baja. Esto no implica necesariamente que el clustering sea malo, sino que la referencia externa no refleja con precisión la estructura natural de los grupos. En consecuencia, las métricas externas son adecuadas para una validación secundaria, pero no para decidir el mejor modelo si se quiere respetar la naturaleza no supervisada del problema.
+
+La estrategia más razonable, por tanto, es la siguiente:
+
+\begin{itemize}
+    \item utilizar DBCV como criterio principal de comparación entre configuraciones;
+    \item revisar conjuntamente la tasa de ruido y la fracción del cluster más grande para descartar soluciones degeneradas;
+    \item interpretar ARI y AMI como indicadores complementarios, no definitivos;
+    \item evitar confiar exclusivamente en métricas internas que ignoran el ruido o en métricas externas que pueden estar sesgadas por etiquetas imperfectas.
+\end{itemize}
+
+En resumen, las métricas internas resultan adecuadas para este tipo de algoritmo, siempre que se seleccionen aquellas diseñadas para ruido y densidad. Las métricas externas tienen valor como análisis auxiliar, pero su papel debe ser secundario debido a la naturaleza parcial y no totalmente fiable de las etiquetas del corpus.
+
+\end{document}
