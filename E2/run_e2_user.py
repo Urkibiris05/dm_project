@@ -22,13 +22,17 @@ from scipy.sparse.csgraph import minimum_spanning_tree
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VECTOR_DIR = ROOT / "vectorizations"
+VECTOR_DIR = ROOT / "vectorizations2"
 RESULT_DIR = Path(__file__).resolve().parent / "resultados"
-REPRESENTATIONS = [
-    f"user__all__{model}-{pool}"
-    for model in ("minilm", "e5")
-    for pool in ("concat", "mean", "max", "blocks")
-]
+REPRESENTATIONS = tuple(
+    sorted(
+        path.name
+        for path in VECTOR_DIR.glob("user__all__*")
+        if (path / "X.npy").exists()
+        and (path / "metadata.csv").exists()
+        and np.load(path / "X.npy", mmap_mode="r").shape[0] == 820
+    )
+)
 MIN_SAMPLES_VALUES = (5, 10, 20, 40)
 PERCENTILES = (5, 10, 15, 20, 30, 40, 50, 60, 70, 80, 90)
 SPACES = ("original", "centered", "pca32", "pca64", "pca128", "pca256")
@@ -55,6 +59,17 @@ def transform_space(X: np.ndarray, space: str) -> np.ndarray:
         reduced = PCA(n_components=components, random_state=STABILITY_SEED).fit_transform(X)
         return normalize_rows(reduced)
     raise ValueError(f"Espacio desconocido: {space}")
+
+
+def spaces_for(X: np.ndarray) -> tuple[str, ...]:
+    """Devuelve espacios PCA válidos para la dimensionalidad de X."""
+    max_components = min(X.shape)
+    pca_spaces = tuple(
+        f"pca{components}"
+        for components in (32, 64, 128, 256)
+        if components <= max_components
+    )
+    return ("original", "centered", *pca_spaces)
 
 
 def dbcv_score(
@@ -185,7 +200,7 @@ def run_representation(name: str) -> list[dict[str, float | int | str]]:
     raw_X = np.load(folder / "X.npy")
     metadata = pd.read_csv(folder / "metadata.csv")
     rows = []
-    for space in SPACES:
+    for space in spaces_for(raw_X):
         X = transform_space(raw_X, space)
         distances = pairwise_distances(X, metric="cosine")
         for min_samples in MIN_SAMPLES_VALUES:
@@ -197,24 +212,8 @@ def run_representation(name: str) -> list[dict[str, float | int | str]]:
                 eps = float(np.percentile(k_distances, percentile))
                 row = evaluate(
                     X, metadata, min_samples, percentile, eps, space,
-                    distances,
+                    distances, calculate_dbcv=True,
                 )
-                if (
-                    row["n_clusters"] >= 2
-                    and row["noise_ratio"] <= MAX_NOISE_RATIO
-                    and row["largest_cluster_frac"] < MAX_LARGEST_CLUSTER_FRAC
-                ):
-                    row["dbcv"] = dbcv_score(
-                        distances,
-                        DBSCAN(
-                            eps=eps,
-                            min_samples=min_samples,
-                            metric="cosine",
-                            algorithm="brute",
-                            n_jobs=-1,
-                        ).fit_predict(X),
-                        min_samples,
-                    )
                 row["representation"] = name
                 rows.append(row)
     return rows

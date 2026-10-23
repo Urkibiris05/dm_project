@@ -1,0 +1,2 @@
+experiment,representation,metric,min_samples,percentile,eps,n_train,n_test,train_clusters,train_noise_ratio,test_noise_ratio,test_assigned_ratio,label_ari,label_nmi
+e8_beto_sts_m5_p50,message__all__beto-sts,cosine,5,50,0.4551166594028473,11616,14331,17,0.3121556473829201,0.3352173609657386,0.6647826390342614,0.014565937567502131,0.01828537789027332

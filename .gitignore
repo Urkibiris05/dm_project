@@ -10,3 +10,8 @@ CLAUDE.md
 .cache/
 # Vectorizaciones generadas localmente
 vectorizations/
+vectorizations2/
+GUIA**
+INFORME_TDIFF_**
+E2/resultados/*assignments.csv
+E8/resultados/*assignments.csv

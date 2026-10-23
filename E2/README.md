@@ -1,29 +1,33 @@
-# E2/E3: embeddings y representación del usuario
+# E2/E3: clustering jerárquico de mensajes y usuarios
 
 ## Objetivo
 
-Este experimento estudia si la representación semántica y la forma de
-agregar los mensajes producen una geometría adecuada para DBSCAN.
+Este experimento estudia si la representación semántica produce grupos de
+mensajes y si la distribución de esos grupos permite agrupar posteriormente
+a los usuarios.
 
-- **E2**: compara MiniLM frente a E5.
-- **E3**: compara `concat`, `mean`, `max` y `blocks` para cada modelo.
+- **E2**: aplica DBSCAN a los mensajes individuales y conserva
+  `id_message` y `subject_key` en cada asignación.
+- **E3**: representa cada usuario mediante la distribución de sus mensajes
+  entre los clústeres de E2 y aplica un segundo DBSCAN sobre esos perfiles.
 
-La unidad de análisis es el usuario, porque `label` está anotada a nivel de
-usuario. El clustering se realiza en el espacio original de 384 dimensiones,
-sin aplicar UMAP antes del clustering.
+La primera unidad de análisis es el mensaje. La segunda es el usuario, pero
+su vector no se obtiene promediando embeddings: se construye a partir de los
+clústeres de mensajes, incluyendo una categoría para el ruido.
 
 ## Metodología
 
-Para cada representación y espacio se prueban:
+Para la primera etapa se prueban:
 
 - distancia coseno;
 - `min_samples` igual a 5, 10, 20 y 40;
 - valores de `eps` definidos por los percentiles 5, 10, 15, 20, 30, 40, 50,
   60, 70, 80 y 90 de la curva k-distance;
-- espacios `original`, `centered`, `pca32`, `pca64`, `pca128` y `pca256`;
-- selección basada primero en DBCV, con ruido máximo del 40 %, fracción del
-  cluster mayor inferior al 70 % y al menos dos clusters;
-- estabilidad por 20 remuestras bootstrap con perturbación de `eps` de ±5 %.
+- `min_samples` de 5, 10, 20 y 40;
+- percentiles de la curva k-distance.
+
+Para la segunda etapa se repite el barrido de `min_samples` y percentiles
+sobre los histogramas de clústeres por usuario.
 
 Las etiquetas `label` y `disorder` se usan únicamente para evaluar las
 particiones ya generadas mediante ARI y NMI. `label` es la evaluación
@@ -32,18 +36,25 @@ trastorno en lugar del riesgo.
 
 ## Resultados
 
-El barrido completo está en:
+El nuevo barrido jerárquico está en:
 
-- [e2_e3_dbscan_sweep.csv](./resultados/e2_e3_dbscan_sweep.csv): todas las
-  configuraciones;
-- [e2_e3_internal_summary.csv](./resultados/e2_e3_internal_summary.csv):
-  mejor configuración interna por representación y espacio tras comprobar
-  estabilidad;
-- [e2_e3_stability_shortlist.csv](./resultados/e2_e3_stability_shortlist.csv):
-  configuraciones candidatas sometidas al análisis de estabilidad.
+- [e2_message_hierarchical_sweep.csv](./resultados/e2_message_hierarchical_sweep.csv):
+  resumen de la primera etapa;
+- [e3_user_from_message_clusters.csv](./resultados/e3_user_from_message_clusters.csv):
+  resultados de la segunda etapa;
+- [e3_user_cluster_assignments.csv](./resultados/e3_user_cluster_assignments.csv):
+  asignaciones de usuarios.
+
+En la repetición final, DBCV se calcula para todas las configuraciones con al
+menos dos clusters, antes de aplicar los filtros de ruido y cobertura.
 
 El ejecutor reproducible es
-[run_e2_user.py](./run_e2_user.py).
+[experiment_message_hierarchical.py](./experiment_message_hierarchical.py).
+
+Las vectorizaciones Word2Vec y Doc2Vec se generan con
+[generate_word_doc_embeddings.py](./generate_word_doc_embeddings.py). Se
+entrenan sin etiquetas sobre todos los mensajes y después se promedian por
+usuario para hacer la comparación E3.
 
 ## Piloto ejecutado
 

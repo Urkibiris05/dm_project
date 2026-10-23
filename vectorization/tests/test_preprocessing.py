@@ -1,5 +1,6 @@
 """Tests de la carga del corpus y de la capa de preprocesado."""
 
+import json
 from pathlib import Path
 
 from vectorization.corpus import load_corpus
@@ -16,6 +17,25 @@ def test_subject_keys_are_unique_across_disorders(corpus_root: Path) -> None:
     assert df["subject_key"].nunique() == 3
     assert "TCA/Train/subject1" in set(df["subject_key"])
     assert set(df["label"]) == {0, 1}
+
+
+def test_load_corpus_accepts_accented_depression_and_subject_separator(
+        tmp_path: Path) -> None:
+    """La carga acepta variantes habituales del formato real del corpus."""
+    split_dir = tmp_path / "Depresión" / "Train"
+    split_dir.mkdir(parents=True)
+    (split_dir / "subject_1.json").write_text(json.dumps({
+        "messages": [
+            {"id": 7, "timestamp": "2021-01-01T10:00:00",
+             "text": "primer mensaje"},
+        ],
+    }), encoding="utf-8")
+
+    df = load_corpus(tmp_path, ["Depresion"], ["Train"])
+
+    assert len(df) == 1
+    assert df.at[0, "disorder"] == "Depresion"
+    assert df.at[0, "message"] == "primer mensaje"
 
 
 def test_strip_emoji_prefers_longest_name() -> None:
