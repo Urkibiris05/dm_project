@@ -1,0 +1,4 @@
+input_line,text,cluster_assigned,is_noise,nearest_core_cluster,nearest_core_distance,distance_over_eps,assigned_cluster_train_size
+1,Me cuesta dormir y llevo varios días con mucha ansiedad,0,False,0,0.2393676595901486,0.5259479182858738,7913
+2,Hoy he salido a caminar con una amiga y me ha sentado bien,0,False,0,0.4181068550528173,0.9186806204840093,7913
+3,"No sé cómo explicar lo que siento, pero necesitaba contarlo",0,False,0,0.2826658671276321,0.6210844215162643,7913
