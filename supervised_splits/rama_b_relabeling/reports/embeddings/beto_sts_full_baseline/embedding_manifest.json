@@ -1,0 +1,28 @@
+{
+  "model_id": "hiiamsid/sentence_similarity_spanish_es",
+  "model_revision": "66ab46adac3910bb6ea6085b962a25e49513b981",
+  "representation": "SentenceTransformer sentence_embedding",
+  "pooling": "model-configured mean pooling over non-padding tokens",
+  "fine_tuned_on_task_labels": false,
+  "normalized_embeddings": false,
+  "device": "cpu",
+  "torch_threads": 14,
+  "batch_size": 32,
+  "min_tokens_filter": null,
+  "message_texts_written_to_outputs": false,
+  "splits": {
+    "train": {
+      "messages": 19805,
+      "subjects": 361,
+      "dimensions": 768,
+      "output": "reports/embeddings/beto_sts_full_baseline/train.npz"
+    },
+    "dev": {
+      "messages": 5452,
+      "subjects": 144,
+      "dimensions": 768,
+      "output": "reports/embeddings/beto_sts_full_baseline/dev.npz"
+    }
+  },
+  "note": "Frozen encoder inference. Test is not included unless explicitly requested after the final protocol is frozen."
+}

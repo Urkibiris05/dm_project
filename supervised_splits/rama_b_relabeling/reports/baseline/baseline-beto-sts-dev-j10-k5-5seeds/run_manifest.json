@@ -1,0 +1,51 @@
+{
+  "status": "completed",
+  "model_id": "hiiamsid/sentence_similarity_spanish_es",
+  "training_labels": {
+    "initial_labels": "subject labels copied weakly to messages",
+    "knn_include_same_subject": "single-pass weak labels; same-subject neighbors allowed except the query itself",
+    "knn_exclude_same_subject": "single-pass weak labels; all same-subject neighbors excluded"
+  },
+  "knn": {
+    "neighbors_J": 10,
+    "min_control_neighbors_K": 5,
+    "metric": "cosine",
+    "mode": "single_pass",
+    "query_message_excluded": true,
+    "exclude_same_subject_condition": true
+  },
+  "classifier": {
+    "architecture": "Linear(d,256)->ReLU->Dropout(0.3)->Linear(256,1)",
+    "loss": "BCEWithLogitsLoss",
+    "class_weights": null,
+    "optimizer": "AdamW",
+    "config": {
+      "hidden_dim": 256,
+      "dropout": 0.3,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "batch_size": 128,
+      "max_epochs": 50,
+      "patience": 8,
+      "neighbors": 10,
+      "min_control_neighbors": 5
+    }
+  },
+  "online_decision": "mean cumulative message probability; irreversible positive decision at first threshold crossing; threshold selected on dev",
+  "selection_metric": "subject-level dev macro-F1",
+  "seeds": [
+    11,
+    23,
+    37,
+    51,
+    79
+  ],
+  "disorders": [
+    "Ansiedad",
+    "Depresion",
+    "TCA"
+  ],
+  "test_used": false,
+  "message_texts_written_to_outputs": false,
+  "summary_csv": "dev_summary.csv"
+}

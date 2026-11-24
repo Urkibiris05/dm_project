@@ -1,0 +1,7 @@
+disorder,same_subject_neighbors_allowed,train_messages,initial_suffer,initial_control,relabelled_suffer_to_control,relabelled_share,positive_subjects_affected,positive_subjects_total
+Ansiedad,True,3830,2307,1523,538,0.2332032943216298,63,65
+Ansiedad,False,3830,2307,1523,596,0.258344169917642,63,65
+Depresion,True,8315,3951,4364,1634,0.413566185775753,118,118
+Depresion,False,8315,3951,4364,1785,0.4517843583902809,118,118
+TCA,True,7660,2866,4794,1395,0.4867411025819958,100,100
+TCA,False,7660,2866,4794,1475,0.5146545708304257,100,100
