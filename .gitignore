@@ -16,3 +16,7 @@ INFORME_TDIFF_**
 E2/resultados/*assignments.csv
 E8/resultados/*assignments.csv
 E8/modelos/
+# Artefactos pesados locales de rq_larra (en Colab viven en Google Drive)
+rq_larra/artifacts/
+rq_larra/**/*.npz
+rq_larra/**/*.pt

@@ -1,0 +1,18 @@
+{
+  "seed": 2023,
+  "ratios": {
+    "train": 0.7,
+    "dev": 0.2,
+    "test": 0.1
+  },
+  "stratification": [
+    "trastorno",
+    "label"
+  ],
+  "unit_of_partition": "subject_id within each disorder",
+  "label": {
+    "0": "control",
+    "1": "suffer"
+  },
+  "message_rows_follow_subject_partition": true
+}

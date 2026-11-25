@@ -1,0 +1,166 @@
+subject_id,trastorno,source_partition,label,label_name,class_name,partition
+subject103,Ansiedad,Test,1,suffer,suffer,dev
+subject109,Ansiedad,Test,0,control,control,dev
+subject113,Ansiedad,Test,1,suffer,suffer,dev
+subject116,Ansiedad,Test,1,suffer,suffer,dev
+subject119,Ansiedad,Test,1,suffer,suffer,dev
+subject12,Ansiedad,Test,1,suffer,suffer,dev
+subject123,Ansiedad,Test,1,suffer,suffer,dev
+subject124,Ansiedad,Test,0,control,control,dev
+subject128,Ansiedad,Test,1,suffer,suffer,dev
+subject130,Ansiedad,Test,1,suffer,suffer,dev
+subject15,Ansiedad,Test,1,suffer,suffer,dev
+subject156,Ansiedad,Test,1,suffer,suffer,dev
+subject163,Ansiedad,Test,1,suffer,suffer,dev
+subject169,Ansiedad,Test,1,suffer,suffer,dev
+subject170,Ansiedad,Test,1,suffer,suffer,dev
+subject180,Ansiedad,Test,1,suffer,suffer,dev
+subject183,Ansiedad,Test,1,suffer,suffer,dev
+subject185,Ansiedad,Test,1,suffer,suffer,dev
+subject19,Ansiedad,Test,1,suffer,suffer,dev
+subject190,Ansiedad,Test,1,suffer,suffer,dev
+subject193,Ansiedad,Test,1,suffer,suffer,dev
+subject247,Ansiedad,Test,0,control,control,dev
+subject283,Ansiedad,Test,0,control,control,dev
+subject371,Ansiedad,Test,0,control,control,dev
+subject439,Ansiedad,Test,0,control,control,dev
+subject488,Ansiedad,Test,0,control,control,dev
+subject49,Ansiedad,Test,0,control,control,dev
+subject498,Ansiedad,Test,0,control,control,dev
+subject67,Ansiedad,Test,0,control,control,dev
+subject83,Ansiedad,Test,0,control,control,dev
+subject188,Depresion,Test,1,suffer,suffer+in favour,dev
+subject190,Depresion,Test,1,suffer,suffer+in favour,dev
+subject196,Depresion,Test,1,suffer,suffer+in favour,dev
+subject198,Depresion,Test,1,suffer,suffer+in favour,dev
+subject2,Depresion,Test,1,suffer,suffer+in favour,dev
+subject217,Depresion,Test,1,suffer,suffer+in favour,dev
+subject220,Depresion,Test,1,suffer,suffer+in favour,dev
+subject240,Depresion,Test,1,suffer,suffer+in favour,dev
+subject256,Depresion,Test,1,suffer,suffer+in favour,dev
+subject260,Depresion,Test,1,suffer,suffer+in favour,dev
+subject315,Depresion,Test,1,suffer,suffer+against,dev
+subject330,Depresion,Test,1,suffer,suffer+against,dev
+subject331,Depresion,Test,0,control,control,dev
+subject34,Depresion,Test,1,suffer,suffer+against,dev
+subject344,Depresion,Test,0,control,control,dev
+subject345,Depresion,Test,0,control,control,dev
+subject354,Depresion,Test,1,suffer,suffer+against,dev
+subject36,Depresion,Test,1,suffer,suffer+against,dev
+subject361,Depresion,Test,0,control,control,dev
+subject370,Depresion,Test,1,suffer,suffer+against,dev
+subject387,Depresion,Test,0,control,control,dev
+subject391,Depresion,Test,0,control,control,dev
+subject395,Depresion,Test,0,control,control,dev
+subject409,Depresion,Test,0,control,control,dev
+subject412,Depresion,Test,0,control,control,dev
+subject439,Depresion,Test,0,control,control,dev
+subject446,Depresion,Test,1,suffer,suffer+against,dev
+subject455,Depresion,Test,0,control,control,dev
+subject464,Depresion,Test,0,control,control,dev
+subject472,Depresion,Test,1,suffer,suffer+against,dev
+subject483,Depresion,Test,0,control,control,dev
+subject61,Depresion,Test,0,control,control,dev
+subject69,Depresion,Test,0,control,control,dev
+subject75,Depresion,Test,0,control,control,dev
+subject81,Depresion,Test,0,control,control,dev
+subject108,Depresion,Train,1,suffer,suffer+in favour,dev
+subject110,Depresion,Train,1,suffer,suffer+in favour,dev
+subject111,Depresion,Train,0,control,control,dev
+subject124,Depresion,Train,1,suffer,suffer+in favour,dev
+subject129,Depresion,Train,1,suffer,suffer+in favour,dev
+subject132,Depresion,Train,1,suffer,suffer+in favour,dev
+subject135,Depresion,Train,1,suffer,suffer+against,dev
+subject140,Depresion,Train,1,suffer,suffer+in favour,dev
+subject142,Depresion,Train,1,suffer,suffer+in favour,dev
+subject145,Depresion,Train,1,suffer,suffer+against,dev
+subject152,Depresion,Train,1,suffer,suffer+in favour,dev
+subject16,Depresion,Train,0,control,control,dev
+subject163,Depresion,Train,0,control,control,dev
+subject167,Depresion,Train,1,suffer,suffer+against,dev
+subject174,Depresion,Train,1,suffer,suffer+against,dev
+subject18,Depresion,Train,1,suffer,suffer+in favour,dev
+subject180,Depresion,Train,0,control,control,dev
+subject191,Depresion,Train,0,control,control,dev
+subject211,Depresion,Train,0,control,control,dev
+subject23,Depresion,Train,0,control,control,dev
+subject237,Depresion,Train,0,control,control,dev
+subject243,Depresion,Train,1,suffer,suffer+other,dev
+subject248,Depresion,Train,0,control,control,dev
+subject276,Depresion,Train,0,control,control,dev
+subject277,Depresion,Train,0,control,control,dev
+subject278,Depresion,Train,0,control,control,dev
+subject281,Depresion,Train,0,control,control,dev
+subject300,Depresion,Train,0,control,control,dev
+subject301,Depresion,Train,1,suffer,suffer+against,dev
+subject1,Depresion,Trial,0,control,control,dev
+subject105,Depresion,Trial,0,control,control,dev
+subject210,Depresion,Trial,1,suffer,suffer+other,dev
+subject249,TCA,Test,0,control,control,dev
+subject253,TCA,Test,0,control,control,dev
+subject261,TCA,Test,0,control,control,dev
+subject263,TCA,Test,0,control,control,dev
+subject266,TCA,Test,0,control,control,dev
+subject267,TCA,Test,0,control,control,dev
+subject276,TCA,Test,0,control,control,dev
+subject284,TCA,Test,0,control,control,dev
+subject287,TCA,Test,0,control,control,dev
+subject289,TCA,Test,0,control,control,dev
+subject292,TCA,Test,0,control,control,dev
+subject300,TCA,Test,0,control,control,dev
+subject305,TCA,Test,0,control,control,dev
+subject316,TCA,Test,0,control,control,dev
+subject52,TCA,Test,1,suffer,suffer,dev
+subject57,TCA,Test,1,suffer,suffer,dev
+subject65,TCA,Test,1,suffer,suffer,dev
+subject7,TCA,Test,1,suffer,suffer,dev
+subject70,TCA,Test,1,suffer,suffer,dev
+subject73,TCA,Test,1,suffer,suffer,dev
+subject77,TCA,Test,1,suffer,suffer,dev
+subject8,TCA,Test,1,suffer,suffer,dev
+subject84,TCA,Test,1,suffer,suffer,dev
+subject9,TCA,Test,1,suffer,suffer,dev
+subject94,TCA,Test,1,suffer,suffer,dev
+subject109,TCA,Train,1,suffer,suffer,dev
+subject111,TCA,Train,1,suffer,suffer,dev
+subject116,TCA,Train,1,suffer,suffer,dev
+subject119,TCA,Train,1,suffer,suffer,dev
+subject135,TCA,Train,1,suffer,suffer,dev
+subject136,TCA,Train,1,suffer,suffer,dev
+subject143,TCA,Train,0,control,control,dev
+subject144,TCA,Train,0,control,control,dev
+subject15,TCA,Train,1,suffer,suffer,dev
+subject153,TCA,Train,0,control,control,dev
+subject154,TCA,Train,0,control,control,dev
+subject156,TCA,Train,0,control,control,dev
+subject158,TCA,Train,0,control,control,dev
+subject163,TCA,Train,0,control,control,dev
+subject17,TCA,Train,1,suffer,suffer,dev
+subject171,TCA,Train,0,control,control,dev
+subject180,TCA,Train,0,control,control,dev
+subject188,TCA,Train,0,control,control,dev
+subject189,TCA,Train,0,control,control,dev
+subject200,TCA,Train,0,control,control,dev
+subject203,TCA,Train,0,control,control,dev
+subject205,TCA,Train,0,control,control,dev
+subject210,TCA,Train,0,control,control,dev
+subject211,TCA,Train,0,control,control,dev
+subject213,TCA,Train,0,control,control,dev
+subject215,TCA,Train,1,suffer,suffer,dev
+subject221,TCA,Train,0,control,control,dev
+subject222,TCA,Train,0,control,control,dev
+subject225,TCA,Train,0,control,control,dev
+subject228,TCA,Train,0,control,control,dev
+subject23,TCA,Train,1,suffer,suffer,dev
+subject230,TCA,Train,0,control,control,dev
+subject233,TCA,Train,0,control,control,dev
+subject238,TCA,Train,0,control,control,dev
+subject24,TCA,Train,1,suffer,suffer,dev
+subject25,TCA,Train,1,suffer,suffer,dev
+subject27,TCA,Train,1,suffer,suffer,dev
+subject280,TCA,Train,1,suffer,suffer,dev
+subject3,TCA,Train,1,suffer,suffer,dev
+subject31,TCA,Train,1,suffer,suffer,dev
+subject1,TCA,Trial,1,suffer,suffer,dev
+subject100,TCA,Trial,1,suffer,suffer,dev
+subject131,TCA,Trial,0,control,control,dev

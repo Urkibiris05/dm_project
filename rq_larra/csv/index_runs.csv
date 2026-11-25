@@ -1,0 +1,2 @@
+run_id,rq,stage,status,notebook,seed,disorder,embeddings,relabel_neighbors,relabel_min_control,source_partitions,artifacts_dir,notes
+run_20261125_205316_smoke,rq_baseline,smoke,blocked_env,,2023,Depresion,tfidf_svd_64,10,5,particiones,rq_larra/csv/rq_baseline/run_20261125_205316_smoke,"Entorno local sin pip/ensurepip; ejecutar en Colab o entorno con dependencias"

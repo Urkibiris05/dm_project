@@ -1,0 +1,83 @@
+subject_id,trastorno,source_partition,label,label_name,class_name,partition
+subject104,Ansiedad,Test,0,control,control,test
+subject11,Ansiedad,Test,1,suffer,suffer,test
+subject115,Ansiedad,Test,1,suffer,suffer,test
+subject117,Ansiedad,Test,0,control,control,test
+subject135,Ansiedad,Test,1,suffer,suffer,test
+subject147,Ansiedad,Test,1,suffer,suffer,test
+subject154,Ansiedad,Test,1,suffer,suffer,test
+subject162,Ansiedad,Test,1,suffer,suffer,test
+subject178,Ansiedad,Test,1,suffer,suffer,test
+subject18,Ansiedad,Test,1,suffer,suffer,test
+subject181,Ansiedad,Test,1,suffer,suffer,test
+subject296,Ansiedad,Test,0,control,control,test
+subject313,Ansiedad,Test,0,control,control,test
+subject375,Ansiedad,Test,0,control,control,test
+subject90,Ansiedad,Test,0,control,control,test
+subject212,Depresion,Test,1,suffer,suffer+in favour,test
+subject221,Depresion,Test,1,suffer,suffer+in favour,test
+subject235,Depresion,Test,1,suffer,suffer+in favour,test
+subject242,Depresion,Test,1,suffer,suffer+in favour,test
+subject377,Depresion,Test,0,control,control,test
+subject389,Depresion,Test,1,suffer,suffer+against,test
+subject445,Depresion,Test,1,suffer,suffer+against,test
+subject460,Depresion,Test,0,control,control,test
+subject481,Depresion,Test,0,control,control,test
+subject484,Depresion,Test,1,suffer,suffer+against,test
+subject92,Depresion,Test,0,control,control,test
+subject114,Depresion,Train,1,suffer,suffer+in favour,test
+subject117,Depresion,Train,0,control,control,test
+subject121,Depresion,Train,1,suffer,suffer+against,test
+subject123,Depresion,Train,1,suffer,suffer+in favour,test
+subject125,Depresion,Train,1,suffer,suffer+against,test
+subject126,Depresion,Train,0,control,control,test
+subject130,Depresion,Train,0,control,control,test
+subject14,Depresion,Train,0,control,control,test
+subject158,Depresion,Train,1,suffer,suffer+in favour,test
+subject160,Depresion,Train,1,suffer,suffer+in favour,test
+subject175,Depresion,Train,1,suffer,suffer+in favour,test
+subject177,Depresion,Train,1,suffer,suffer+in favour,test
+subject19,Depresion,Train,0,control,control,test
+subject213,Depresion,Train,0,control,control,test
+subject224,Depresion,Train,0,control,control,test
+subject232,Depresion,Train,0,control,control,test
+subject25,Depresion,Train,0,control,control,test
+subject275,Depresion,Train,0,control,control,test
+subject298,Depresion,Train,0,control,control,test
+subject304,Depresion,Train,0,control,control,test
+subject305,Depresion,Train,0,control,control,test
+subject307,Depresion,Train,1,suffer,suffer+against,test
+subject314,Depresion,Train,1,suffer,suffer+against,test
+subject282,TCA,Test,0,control,control,test
+subject283,TCA,Test,0,control,control,test
+subject293,TCA,Test,0,control,control,test
+subject298,TCA,Test,0,control,control,test
+subject304,TCA,Test,0,control,control,test
+subject310,TCA,Test,0,control,control,test
+subject311,TCA,Test,0,control,control,test
+subject313,TCA,Test,0,control,control,test
+subject332,TCA,Test,0,control,control,test
+subject40,TCA,Test,1,suffer,suffer,test
+subject44,TCA,Test,1,suffer,suffer,test
+subject5,TCA,Test,1,suffer,suffer,test
+subject50,TCA,Test,1,suffer,suffer,test
+subject62,TCA,Test,1,suffer,suffer,test
+subject66,TCA,Test,0,control,control,test
+subject78,TCA,Test,1,suffer,suffer,test
+subject90,TCA,Test,1,suffer,suffer,test
+subject93,TCA,Test,1,suffer,suffer,test
+subject105,TCA,Train,1,suffer,suffer,test
+subject123,TCA,Train,1,suffer,suffer,test
+subject127,TCA,Train,1,suffer,suffer,test
+subject14,TCA,Train,1,suffer,suffer,test
+subject167,TCA,Train,0,control,control,test
+subject170,TCA,Train,0,control,control,test
+subject177,TCA,Train,0,control,control,test
+subject179,TCA,Train,0,control,control,test
+subject18,TCA,Train,1,suffer,suffer,test
+subject20,TCA,Train,1,suffer,suffer,test
+subject202,TCA,Train,0,control,control,test
+subject208,TCA,Train,0,control,control,test
+subject218,TCA,Train,0,control,control,test
+subject239,TCA,Train,0,control,control,test
+subject241,TCA,Train,0,control,control,test
